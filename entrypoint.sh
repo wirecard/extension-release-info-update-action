@@ -2,4 +2,4 @@
 
 set -e
 
-python /usr/bin/main.py "$1" "$2"
+python /usr/bin/main.py repository "$1" action "$2"
