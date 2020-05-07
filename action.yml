@@ -1,0 +1,16 @@
+name: 'Manage release information in extension files'
+description: 'Automatically change release version'
+inputs:
+  repository:
+    description: 'Repository name'
+    required: true
+    default: ''
+  action:
+    description: 'Choose what the cation should do, update_changelog, check_changlog_updated'
+    required: true
+    default: 'update_changelog'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.repository }}
