@@ -1,6 +1,7 @@
 import os
 import json
 import yaml
+import markdown
 from src.Definition import Definition
 
 
@@ -20,15 +21,21 @@ class FileActionHelper:
         return file_path
 
     @staticmethod
-    def get_workflow_file_name(extension, workflow_type) -> str:
+    def get_config_file_name(extension, workflow_type) -> str:
         """
         Returns workflow file name
         :return: string
         """
-        with open(Definition.SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH) as config_files_json:
+        with open(Definition.SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH, 'r') as config_files_json:
             json_content = json.loads(config_files_json.read())
             workflow_file = json_content[extension][workflow_type]
         return workflow_file
+
+    @staticmethod
+    def get_file_path_by_config_key(extension, key):
+        config_file_name = FileActionHelper.get_config_file_name(extension, key)
+        config_file_full_path = FileActionHelper.get_file_path(config_file_name)
+        return config_file_full_path
 
     @staticmethod
     def get_data_from_workflow_file(extension, workflow) -> yaml:
@@ -37,8 +44,19 @@ class FileActionHelper:
         :return: yaml object
         """
         yaml_data = None
-        workflow_file_name = FileActionHelper.get_workflow_file_name(extension, workflow)
-        workflow_file_full_path = FileActionHelper.get_file_path(workflow_file_name)
-        with open(workflow_file_full_path) as workflow_file:
+        workflow_file_full_path = FileActionHelper.get_file_path_by_config_key(extension, workflow)
+        with open(workflow_file_full_path, 'r') as workflow_file:
             yaml_data = yaml.load(workflow_file, Loader=yaml.FullLoader)
         return yaml_data
+
+    @staticmethod
+    def get_data_from_markdown_file(extension, markdown_file) -> markdown:
+        """
+        Returns data from file
+        :return: markdown object
+        """
+        markdown_file_full_path = FileActionHelper.get_file_path_by_config_key(extension, markdown_file)
+        with open(markdown_file_full_path, 'r') as markdown_file:
+            markdown_data = markdown.markdown(markdown_file.read())
+        return markdown_data
+

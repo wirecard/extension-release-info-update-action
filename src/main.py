@@ -8,6 +8,7 @@ import git
 import re
 from src.VersionPhp import VersionPhp
 from src.VersionExtension import VersionExtension
+from src.VersionCompatibility import VersionCompatibility
 from src.Definition import Definition
 
 if __name__ == "__main__":
@@ -26,4 +27,7 @@ if __name__ == "__main__":
     version_extension = VersionExtension()
     print("Release candidate version: {} ".format(version_extension.get_release_candidate_version()))
     print("Release candidate version: {} ".format(version_extension.get_last_released_version()))
+    version_compatibility = VersionCompatibility(extension_name,
+                                                 version_extension.get_last_released_version(extension_name, True))
+
 

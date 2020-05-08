@@ -1,6 +1,6 @@
 FROM python:3
 
-RUN pip install lastversion gitpython pyyml
+RUN pip install lastversion gitpython pyyml markdown bs4
 
 COPY *.json /usr/bin/
 COPY . /usr/bin/
