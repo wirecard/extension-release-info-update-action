@@ -7,6 +7,7 @@ import sys
 import git
 import re
 from src.VersionPhp import VersionPhp
+from src.VersionExtension import VersionExtension
 from src.Definition import Definition
 
 if __name__ == "__main__":
@@ -19,6 +20,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
     extension_name = args.repository
     extension_action = args.action
-    version = VersionPhp(extension_name, Definition.SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH)
-    print(version.get_compatible_php_versions())
+    version_php = VersionPhp(extension_name)
+    print("Php compatible version: {} ".format(version_php.get_compatible_php_versions()))
+    print("Php tested version: {} ".format(version_php.get_tested_php_versions()))
+    version_extension = VersionExtension()
+    print("Release candidate version: {} ".format(version_extension.get_release_candidate_version()))
+    print("Release candidate version: {} ".format(version_extension.get_last_released_version()))
 

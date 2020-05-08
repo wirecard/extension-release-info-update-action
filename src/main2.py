@@ -106,7 +106,7 @@ class ExtensionVersionUpdater:
         json_content = JsonFile(Definition.CONFIG_FILE_PATH)
         for extension_parameters in getattr(json_content.get_json_content().extensions, naming_convention[self.extension_name]):
             content = []
-            release_version = ReleaseVersion(extension_parameters.filename, content, extension_parameters.version)
+            release_version = ReleaseVersion(extension_parameters.filename, content, extension_parameters.release_candidate_version)
             release_version.get_version_differences()
             file_name = open(ExtensionVersionUpdater.get_filename_path(extension_parameters.filename), 'w')
             for file_line in content:

@@ -5,22 +5,37 @@ import re
 class VersionExtension:
 
     def __init__(self):
-        self.version = ''
+        self.release_candidate_version = ''
+        self.last_released_version = ''
+        self.set_release_candidate_version()
+        self.set_last_released_version()
 
-    @staticmethod
-    def set_current_release_version(self):
+    def set_release_candidate_version(self):
         """
-        Sets current release version from branch name
+        Sets current release candidate version from branch name
         """
         repo = git.Repo(search_parent_directories=True)
         branch = repo.active_branch
-        self.version = re.sub('[^\d\.]', '', branch.name)
+        self.release_candidate_version = re.sub('[^\d\.]', '', branch.name)
 
-
-    @staticmethod
-    def get_current_release_version(self) -> str:
+    def get_release_candidate_version(self) -> str:
         """
-        Returns current release version from branch name
+        Returns current release candidate version from branch name
         :return: str
         """
-        return self.version
+        return self.release_candidate_version
+
+    def set_last_released_version(self):
+        """
+        Sets last release version from git tag
+        """
+        repo = git.Repo(search_parent_directories=True)
+        tag = repo.git.tag(l=True)
+        self.last_released_version = tag
+
+    def get_last_released_version(self) -> str:
+        """
+            Returns last released version from git tag
+            :return: str
+            """
+        return self.last_released_version
