@@ -1,5 +1,5 @@
 from src.FileActionHelper import FileActionHelper
-from src.Definition import Definition
+from src.Constants import Constants
 
 
 class VersionPhp:
@@ -16,7 +16,7 @@ class VersionPhp:
         Sets tested php versions from ui test settings
         """
         workflow_data = FileActionHelper.get_data_from_workflow_file(self.extension,
-                                                                     Definition.UI_TEST_WORKFLOW)
+                                                                     Constants.UI_TEST_WORKFLOW)
         self.tested_php_versions = workflow_data['jobs']['include'][0]['php']
 
     def set_compatible_php_versions(self):
@@ -24,7 +24,7 @@ class VersionPhp:
         Sets tested php versions from unit test settings
         """
         workflow_data = FileActionHelper.get_data_from_workflow_file(self.extension,
-                                                                     Definition.UNIT_TEST_WORKFLOW)
+                                                                     Constants.UNIT_TEST_WORKFLOW)
         self.compatible_php_versions = workflow_data['jobs']['run']['strategy']['matrix']['php-versions']
 
     def get_compatible_php_versions(self) -> list:

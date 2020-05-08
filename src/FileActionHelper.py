@@ -2,7 +2,7 @@ import os
 import json
 import yaml
 import markdown
-from src.Definition import Definition
+from src.Constants import Constants
 
 
 class FileActionHelper:
@@ -26,7 +26,7 @@ class FileActionHelper:
         Returns workflow file name
         :return: string
         """
-        with open(Definition.SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH, 'r') as config_files_json:
+        with open(Constants.SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH, 'r') as config_files_json:
             json_content = json.loads(config_files_json.read())
             workflow_file = json_content[extension][workflow_type]
         return workflow_file

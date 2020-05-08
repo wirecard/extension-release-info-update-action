@@ -1,4 +1,4 @@
-class Definition:
+class Constants:
     # SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH = '/usr/bin/shop-extensions-internal-files.json'
     # SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH = '/usr/bin/shop-extensions-internal-files.json'
     SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH = 'shop-extensions-internal-files.json'

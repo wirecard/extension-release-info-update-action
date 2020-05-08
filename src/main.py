@@ -9,7 +9,7 @@ import re
 from src.VersionPhp import VersionPhp
 from src.VersionExtension import VersionExtension
 from src.VersionCompatibility import VersionCompatibility
-from src.Definition import Definition
+from src.Constants import Constants
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Provide shop extension name as an argument.')
