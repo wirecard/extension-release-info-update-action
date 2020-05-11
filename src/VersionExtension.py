@@ -18,7 +18,7 @@ class VersionExtension:
         branch = repo.active_branch
         self.release_candidate_version = re.sub('[^\d\.]', '', branch.name)
 
-    def get_release_candidate_version(self, semver = False) -> str:
+    def get_release_candidate_version(self, semver=False) -> str:
         """
         Returns current release candidate version from branch name
         :return: str
@@ -35,7 +35,7 @@ class VersionExtension:
         tag = repo.git.tag(l=True)
         self.last_released_version = tag
 
-    def get_last_released_version(self, semver = False) -> str:
+    def get_last_released_version(self, semver=False) -> str:
         """
             Returns last released version from git tag
             :return: str

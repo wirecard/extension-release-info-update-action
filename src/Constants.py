@@ -7,6 +7,8 @@ class Constants:
     UI_TEST_WORKFLOW = 'ui_test_workflow'
     CHANGELOG_FILE = 'changelog_file'
     SHOP_EXTENSION_PARTNER = 'wirecard'
+    COMPATIBILITY_IN_CHANGELOG = "Compatibility"
+    TESTED_IN_CHANGELOG = "Tested"
 
     EXTENSION_NAMING_CONVENTION = {
         "paymentSDK-php": "paymentsdk",
