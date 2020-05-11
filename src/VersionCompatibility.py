@@ -18,7 +18,7 @@ class VersionCompatibility:
 
     def set_compatible_versions(self):
         """
-         Sets current release candidate compatible shop systems range
+         Sets compatible shop systems and platform ranges from changelog latest entry
          """
         compatible_versions_ranges = self.get_version_ranges(Constants.COMPATIBILITY_IN_CHANGELOG)
         self.compatible_shopsystem_versions_range = compatible_versions_ranges[0].split('-')
@@ -27,7 +27,7 @@ class VersionCompatibility:
 
     def set_tested_versions(self):
         """
-         Sets current release candidate tested shop systems range
+         Sets tested shop systems and platform ranges from changelog latest entry
          """
         tested_versions_ranges = self.get_version_ranges(Constants.TESTED_IN_CHANGELOG)
         self.tested_shopsystem_versions_range = tested_versions_ranges[0].split('-')
@@ -39,9 +39,8 @@ class VersionCompatibility:
         Returns range of requested versions
         :return: list
         """
-        last_release_compatibility_table = FileActionHelper.get_last_release_markdown_entry_part(self.extension,
-                                                                                                 self.last_released_version,
-                                                                                            'table')
+        last_release_compatibility_table = \
+            FileActionHelper.get_changelog_markdown_entry_part(self.extension, self.last_released_version, 'table')
         versions_ranges = self.get_versions_from_table(
             last_release_compatibility_table, version_type)
         return versions_ranges

@@ -1,6 +1,4 @@
 from src.FileActionHelper import FileActionHelper
-from src.Constants import Constants
-from bs4 import BeautifulSoup
 
 
 class ChangelogEntries:
@@ -12,9 +10,12 @@ class ChangelogEntries:
         self.set_changelog_entries()
 
     def set_changelog_entries(self):
-        last_release_entry = FileActionHelper.get_last_release_markdown_entry_part(self.extension,
-                                                                                   self.last_released_version,
-                                                                                   'comments')
+        """
+         Sets comments from latest changelog latest entry
+         """
+        last_release_entry = FileActionHelper.get_changelog_markdown_entry_part(self.extension,
+                                                                                self.last_released_version,
+                                                                                'comments')
         comments = []
         for comment in last_release_entry.find_all('li'):
             comments.append(comment.text)
@@ -22,4 +23,8 @@ class ChangelogEntries:
         print(comments)
 
     def get_changelog_entries(self):
+        """
+        Returns list of comments from changelog latest entry
+        :return: list
+        """
         return self.changelog_entries

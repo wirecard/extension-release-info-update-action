@@ -62,18 +62,27 @@ class FileActionHelper:
         return markdown_data
 
     @staticmethod
-    def get_last_release_markdown_entry_part(extension, last_released_version, entry_part):
+    def get_changelog_markdown_entries(extension):
         """
-        Returns bs4 format table from changelog markdown
-        :return: BeautifulSoup tag
+        Returns bs4 format all tables from changelog markdown
+        :return: BeautifulSoup object, BeautifulSoup tag
         """
         changelog_data = FileActionHelper.get_data_from_markdown_file(extension, Constants.CHANGELOG_FILE)
         soup = BeautifulSoup(changelog_data, 'html.parser')
         extension_releases = soup.find_all('h2')
+        return soup, extension_releases
+
+    @staticmethod
+    def get_changelog_markdown_entry_part(extension, last_released_version, entry_part):
+        """
+        Returns bs4 format table from changelog markdown
+        :return: BeautifulSoup tag
+        """
+        soup, markdown_entries = FileActionHelper.get_changelog_markdown_entries(extension)
         position = 0
-        for entry in extension_releases:
+        for entry in markdown_entries:
             if last_released_version in entry:
-                position = extension_releases.index(entry)
+                position = markdown_entries.index(entry)
         if entry_part == 'table':
             return soup.find_all('p')[position]
         if entry_part == 'comments':
