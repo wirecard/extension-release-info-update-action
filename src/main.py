@@ -1,19 +1,14 @@
-# from lastversion import lastversion
-from collections import namedtuple
-import os
-import json
 import argparse
-import sys
-import git
-import re
 from src.VersionPhp import VersionPhp
 from src.VersionExtension import VersionExtension
 from src.VersionCompatibility import VersionCompatibility
 from src.Constants import Constants
+from src.ChangelogEntries import ChangelogEntries
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Provide shop extension name as an argument.')
-    parser.add_argument('repository', metavar='extension name', type=str, help='shop extension name e.g. woocommerce-ee')
+    parser.add_argument('repository', metavar='extension name', type=str,
+                        help='shop extension name e.g. woocommerce-ee')
     parser.add_argument('action', metavar='action name', type=str,
                         help='the action to be performed e.g. update_changelog, check_changlog_updated',
                         choices=['update_changelog', 'check_changlog_updated'])
@@ -22,7 +17,6 @@ if __name__ == "__main__":
     extension_name = Constants.EXTENSION_NAMING_CONVENTION[args.repository]
     extension_action = args.action
     version_php = VersionPhp(extension_name)
-
 
     print("Php compatible version: {} ".format(version_php.get_compatible_php_versions()))
     print("Php tested version: {} ".format(version_php.get_tested_php_versions()))
@@ -41,5 +35,5 @@ if __name__ == "__main__":
         version_compatibility.get_tested_shopsystem_versions_range()))
     print("Tested platform versions: {} ".format(version_compatibility.get_tested_platform_versions_range()))
 
-
-
+    changelog_entries = ChangelogEntries(extension_name, 'v3.2.1')
+    print("Changelog entries: {} ".format(changelog_entries.get_changelog_entries()))

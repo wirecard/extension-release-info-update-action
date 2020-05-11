@@ -39,24 +39,12 @@ class VersionCompatibility:
         Returns range of requested versions
         :return: list
         """
-        last_release_compatibility_table = self.get_last_release_compatibility_table()
+        last_release_compatibility_table = FileActionHelper.get_last_release_markdown_entry_part(self.extension,
+                                                                                                 self.last_released_version,
+                                                                                            'table')
         versions_ranges = self.get_versions_from_table(
             last_release_compatibility_table, version_type)
         return versions_ranges
-
-    def get_last_release_compatibility_table(self):
-        """
-        Returns bs4 format table from changelog markdown
-        :return: BeautifulSoup tag
-        """
-        changelog_data = FileActionHelper.get_data_from_markdown_file(self.extension, Constants.CHANGELOG_FILE)
-        soup = BeautifulSoup(changelog_data, 'html.parser')
-        extension_releases = soup.find_all('h2')
-        position = 0
-        for entry in extension_releases:
-            if self.last_released_version in entry:
-                position = extension_releases.index(entry)
-        return soup.find_all('p')[position]
 
     @staticmethod
     def get_versions_from_table(compatibility_table, version_type) -> list:
