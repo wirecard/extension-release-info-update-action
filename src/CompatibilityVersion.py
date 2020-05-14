@@ -1,6 +1,6 @@
 from src.FileActionHelper import FileActionHelper
 from src.Constants import Constants
-from bs4 import BeautifulSoup
+from bs4 import element
 import re
 
 
@@ -30,9 +30,9 @@ class CompatibilityVersion:
          Sets tested shop systems and platform ranges from changelog latest entry
          """
         tested_versions_ranges = self.get_version_ranges(Constants.TESTED_IN_CHANGELOG)
-        self.tested_shopsystem_versions_range = tested_versions_ranges[0].split('-')
         if len(tested_versions_ranges) > 1:
             self.tested_platform_versions_range = tested_versions_ranges[1].split('-')
+        self.tested_shopsystem_versions_range = self.get_tested_version_range_from_config()
 
     def get_version_ranges(self, version_type):
         """
@@ -53,7 +53,7 @@ class CompatibilityVersion:
         """
         compatibility_string = ''
         for line in compatibility_table.contents:
-            if "Tag" in str(type(line)) and version_type in line.text:
+            if isinstance(line, element.Tag) and version_type in line.text:
                 compatibility_string = str(line.next_sibling)
         compatibility_array = compatibility_string.split(',')
         compatibility_ranges = []
@@ -61,6 +61,13 @@ class CompatibilityVersion:
             compatibility_version_range = re.sub('[^\d\.-]', '', entry)
             compatibility_ranges.append(compatibility_version_range)
         return compatibility_ranges
+
+    def get_tested_version_range_from_config(self):
+        """
+        Returns range of tested versions from UI test config
+        :return: list
+        """
+        return FileActionHelper.get_data_from_compatible_shop_releases_text_file(self.extension)
 
     def get_compatible_shopsystem_versions_range(self) -> list:
         """
@@ -89,4 +96,3 @@ class CompatibilityVersion:
         :return: list
         """
         return self.tested_platform_versions_range
-

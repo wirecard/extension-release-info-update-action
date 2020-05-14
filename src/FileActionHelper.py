@@ -62,6 +62,18 @@ class FileActionHelper:
         return markdown_data
 
     @staticmethod
+    def get_data_from_compatible_shop_releases_text_file(extension) -> list:
+        """
+        Returns data from text file
+        :return: list
+        """
+        text_file_full_path = FileActionHelper.get_file_path_by_config_key(extension,
+                                                                           Constants.COMPATIBLE_SHOP_RELEASES_FILE)
+        with open(text_file_full_path, 'r') as text_file:
+            text_array = text_file.readlines()
+        return text_array
+
+    @staticmethod
     def get_changelog_markdown_entries(extension):
         """
         Returns bs4 format all tables from changelog markdown

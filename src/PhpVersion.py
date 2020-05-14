@@ -17,7 +17,12 @@ class PhpVersion:
         """
         workflow_data = FileActionHelper.get_data_from_workflow_file(self.extension,
                                                                      Constants.UI_TEST_WORKFLOW)
-        self.tested_php_versions = workflow_data['jobs']['include'][0]['php']
+        tested_php_versions = workflow_data['jobs']['include'][0]['php']
+        if isinstance(tested_php_versions, list):
+            for version in tested_php_versions:
+                self.tested_php_versions.append(str(version))
+        if isinstance(tested_php_versions, float):
+            self.tested_php_versions = [str(tested_php_versions)]
 
     def set_compatible_php_versions(self):
         """

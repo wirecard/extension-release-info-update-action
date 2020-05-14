@@ -6,9 +6,11 @@ class Constants:
     UNIT_TEST_WORKFLOW = 'unit_test_workflow'
     UI_TEST_WORKFLOW = 'ui_test_workflow'
     CHANGELOG_FILE = 'changelog_file'
+    COMPATIBLE_SHOP_RELEASES_FILE = 'compatible_shop_releases_file'
     SHOP_EXTENSION_PARTNER = 'wirecard'
     COMPATIBILITY_IN_CHANGELOG = "Compatibility"
     TESTED_IN_CHANGELOG = "Tested"
+    OVERVIEW_IN_CHANGELOG = "Overview"
     TABLE_TAG_IN_CHANGELOG = 'p'
     RELEASE_HEADER_TAG_IN_CHANGELOG = 'h2'
     COMMENTS_TAG_IN_CHANGELOG = 'ul'
