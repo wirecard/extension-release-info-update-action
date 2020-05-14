@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import re
 
 
-class VersionCompatibility:
+class CompatibilityVersion:
 
     def __init__(self, extension, last_released_version):
         self.extension = extension

@@ -1,0 +1,14 @@
+{
+  "woocommerce":
+    {
+      "unit_test_workflow": "run_cs_unit_coverage.yml",
+      "ui_test_workflow": ".travis.yml",
+      "changelog_file": "CHANGELOG.md"
+    },
+    "magento2":
+    {
+      "unit_test_workflow": "run_cs_unit_coverage.yml",
+      "ui_test_workflow": ".travis.yml",
+      "changelog_file": "CHANGELOG.md"
+    }
+}

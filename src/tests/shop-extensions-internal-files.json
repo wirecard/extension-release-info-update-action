@@ -1,0 +1,36 @@
+{
+  "woocommerce": [
+    {
+      "filename": "woocommerce-wirecard-payment-gateway.php",
+      "extension_version": "Version"
+    },
+    {
+      "filename": "readme.txt",
+      "extension_version": "Stable tag",
+      "php_lowest_version": "Requires PHP",
+      "wordpress_version": "Requires at least",
+      "woocommerce_highest_version": "Tested up to",
+      "changelog_info": "== Changelog =="
+    },
+    {
+      "filename": "README"
+    }
+  ],
+    "magento2": [
+    {
+      "filename": "woocommerce-wirecard-payment-gateway.php",
+      "extension_version": "Version"
+    },
+    {
+      "filename": "readme.txt",
+      "extension_version": "Stable tag",
+      "php_lowest_version": "Requires PHP",
+      "wordpress_version": "Requires at least",
+      "woocommerce_highest_version": "Tested up to",
+      "changelog_info": "== Changelog =="
+    },
+    {
+      "filename": "README"
+    }
+  ]
+}

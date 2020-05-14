@@ -2,7 +2,7 @@ from src.FileActionHelper import FileActionHelper
 from src.Constants import Constants
 
 
-class VersionPhp:
+class PhpVersion:
 
     def __init__(self, extension):
         self.extension = extension

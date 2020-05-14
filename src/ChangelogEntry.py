@@ -1,7 +1,7 @@
 from src.FileActionHelper import FileActionHelper
 
 
-class ChangelogEntries:
+class ChangelogEntry:
 
     def __init__(self, extension, last_released_version):
         self.extension = extension

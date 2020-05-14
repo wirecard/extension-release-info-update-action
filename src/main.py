@@ -1,9 +1,9 @@
 import argparse
-from src.VersionPhp import VersionPhp
-from src.VersionExtension import VersionExtension
-from src.VersionCompatibility import VersionCompatibility
+from src.PhpVersion import PhpVersion
+from src.ExtensionVersion import ExtensionVersion
+from src.CompatibilityVersion import CompatibilityVersion
 from src.Constants import Constants
-from src.ChangelogEntries import ChangelogEntries
+from src.ChangelogEntry import ChangelogEntry
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Provide shop extension name as an argument.')
@@ -16,24 +16,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
     extension_name = Constants.EXTENSION_NAMING_CONVENTION[args.repository]
     extension_action = args.action
-    version_php = VersionPhp(extension_name)
 
-    print("Php compatible version: {} ".format(version_php.get_compatible_php_versions()))
-    print("Php tested version: {} ".format(version_php.get_tested_php_versions()))
-    version_extension = VersionExtension()
+    version_extension = ExtensionVersion()
     print("Release candidate version: {} ".format(version_extension.get_release_candidate_version()))
-    print("Release candidate version: {} ".format(version_extension.get_last_released_version()))
-    print("Release candidate semver version: {} ".format(version_extension.get_last_released_version()))
+    print("Release candidate semver version: {} ".format(version_extension.get_release_candidate_version(True)))
+
+    print("Last released version: {} ".format(version_extension.get_last_released_version()))
+    print("Last released semver version: {} ".format(version_extension.get_last_released_version(True)))
     # version_compatibility = VersionCompatibility(extension_name,
     #                                              version_extension.get_last_released_version(True))
-    version_compatibility = VersionCompatibility(extension_name,
-                                                 'v3.2.1')
-    print("Compatible shop system versions: {} ".format(
-        version_compatibility.get_compatible_shopsystem_versions_range()))
-    print("Compatible platform versions: {} ".format(version_compatibility.get_compatible_platform_versions_range()))
-    print("Tested shop system versions: {} ".format(
-        version_compatibility.get_tested_shopsystem_versions_range()))
-    print("Tested platform versions: {} ".format(version_compatibility.get_tested_platform_versions_range()))
 
-    changelog_entries = ChangelogEntries(extension_name, 'v3.2.1')
-    print("Changelog entries: {} ".format(changelog_entries.get_changelog_entries()))

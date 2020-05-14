@@ -2,9 +2,10 @@ import git
 import re
 
 
-class VersionExtension:
+class ExtensionVersion:
 
     def __init__(self):
+        self.repo = git.Repo(search_parent_directories=True)
         self.release_candidate_version = ''
         self.last_released_version = ''
         self.set_release_candidate_version()
@@ -14,8 +15,7 @@ class VersionExtension:
         """
         Sets current release candidate version from branch name
         """
-        repo = git.Repo(search_parent_directories=True)
-        branch = repo.active_branch
+        branch = self.repo.active_branch
         self.release_candidate_version = re.sub('[^\d\.]', '', branch.name)
 
     def get_release_candidate_version(self, semver=False) -> str:
@@ -31,8 +31,7 @@ class VersionExtension:
         """
         Sets last release version from git tag
         """
-        repo = git.Repo(search_parent_directories=True)
-        tag = repo.git.tag(l=True)
+        tag = self.repo.git.tag(l=True)
         self.last_released_version = tag
 
     def get_last_released_version(self, semver=False) -> str:
