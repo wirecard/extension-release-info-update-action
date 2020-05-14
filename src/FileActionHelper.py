@@ -69,7 +69,7 @@ class FileActionHelper:
         """
         changelog_data = FileActionHelper.get_data_from_markdown_file(extension, Constants.CHANGELOG_FILE)
         soup = BeautifulSoup(changelog_data, 'html.parser')
-        extension_releases = soup.find_all('h2')
+        extension_releases = soup.find_all(Constants.RELEASE_HEADER_TAG_IN_CHANGELOG)
         return soup, extension_releases
 
     @staticmethod
@@ -84,6 +84,6 @@ class FileActionHelper:
             if last_released_version in entry:
                 position = markdown_entries.index(entry)
         if entry_part == 'table':
-            return soup.find_all('p')[position]
+            return soup.find_all(Constants.TABLE_TAG_IN_CHANGELOG)[position]
         if entry_part == 'comments':
-            return soup.find_all('ul')[position]
+            return soup.find_all(Constants.COMMENTS_TAG_IN_CHANGELOG)[position]

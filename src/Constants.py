@@ -9,6 +9,10 @@ class Constants:
     SHOP_EXTENSION_PARTNER = 'wirecard'
     COMPATIBILITY_IN_CHANGELOG = "Compatibility"
     TESTED_IN_CHANGELOG = "Tested"
+    TABLE_TAG_IN_CHANGELOG = 'p'
+    RELEASE_HEADER_TAG_IN_CHANGELOG = 'h2'
+    COMMENTS_TAG_IN_CHANGELOG = 'ul'
+    NEW_LINE = '\n'
 
     EXTENSION_NAMING_CONVENTION = {
         "paymentSDK-php": "paymentsdk",
