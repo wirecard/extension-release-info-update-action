@@ -4,19 +4,21 @@ from bs4 import element
 import re
 
 
-class CompatibilityVersion:
+class ShopSystemVersion:
 
     def __init__(self, extension, last_released_version):
         self.extension = extension
         self.last_released_version = last_released_version
         self.compatible_shopsystem_versions_range = []
         self.compatible_platform_versions_range = []
-        self.tested_shopsystem_versions_range = []
+        self.tested_shopsystem_versions_from_config_range = []
+        self.tested_shopsystem_versions_from_changelog_range = []
         self.tested_platform_versions_range = []
-        self.set_compatible_versions()
-        self.set_tested_versions()
+        self.set_compatible_versions_from_config()
+        self.set_tested_platform_versions()
+        self.set_tested_shopsystem_versions_from_config()
 
-    def set_compatible_versions(self):
+    def set_compatible_versions_from_config(self):
         """
          Sets compatible shop systems and platform ranges from changelog latest entry
          """
@@ -25,14 +27,19 @@ class CompatibilityVersion:
         if len(compatible_versions_ranges) > 1:
             self.compatible_platform_versions_range = compatible_versions_ranges[1].split('-')
 
-    def set_tested_versions(self):
+    def set_tested_platform_versions(self):
         """
-         Sets tested shop systems and platform ranges from changelog latest entry
+         Sets tested platform ranges from changelog latest entry
          """
         tested_versions_ranges = self.get_version_ranges(Constants.TESTED_IN_CHANGELOG)
         if len(tested_versions_ranges) > 1:
             self.tested_platform_versions_range = tested_versions_ranges[1].split('-')
-        self.tested_shopsystem_versions_range = self.get_tested_version_range_from_config()
+
+    def set_tested_shopsystem_versions_from_config(self):
+        """
+         Sets tested shop systems from config
+         """
+        self.tested_shopsystem_versions_from_config_range = self.get_tested_version_range_from_config()
 
     def get_version_ranges(self, version_type):
         """
@@ -55,9 +62,9 @@ class CompatibilityVersion:
         for line in compatibility_table.contents:
             if isinstance(line, element.Tag) and version_type in line.text:
                 compatibility_string = str(line.next_sibling)
-        compatibility_array = compatibility_string.split(',')
+        compatibility_list = compatibility_string.split(',')
         compatibility_ranges = []
-        for entry in compatibility_array:
+        for entry in compatibility_list:
             compatibility_version_range = re.sub('[^\d\.-]', '', entry)
             compatibility_ranges.append(compatibility_version_range)
         return compatibility_ranges
@@ -85,14 +92,24 @@ class CompatibilityVersion:
 
     def get_tested_shopsystem_versions_range(self) -> list:
         """
-        Returns range of shop system tested versions
+        Returns range of shop system tested versions from config
         :return: list
         """
-        return self.tested_shopsystem_versions_range
+        return self.tested_shopsystem_versions_from_config_range
 
     def get_tested_platform_versions_range(self) -> list:
         """
-        Returns range of platform tested versions
+        Returns range of platform tested versions from changelog
         :return: list
         """
         return self.tested_platform_versions_range
+
+    def set_tested_shopsystem_versions_from_changelog(self):
+        pass
+
+    def get_tested_shopsystem_versions_from_changelog(self) -> list:
+        """
+        Returns range of shopsystem tested versions from changelog
+        :return: list
+        """
+        return self.tested_shopsystem_versions_from_changelog_range

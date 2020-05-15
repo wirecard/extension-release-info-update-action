@@ -4,9 +4,9 @@ This action automates bumping versions during release process of wirecard extens
 
 extension last released version  - taken from last git tag
 extension current release version - taken from current branch name
-php compatible versions - taken from unit tests
-php tested versions - taken from UI tests
-shop system tested version - taken from UI test settings (.bin/compatible-shop-releases.txt first line)
+initial php compatible versions - taken from unit tests
+initial php tested versions - taken from UI tests
+initial shop system tested version - taken from UI test settings (.bin/compatible-shop-releases.txt first line)
 shop system compatible version - taken from previous changelog entry
 
 shop system platforn  tested version - taken from previous changelog entry

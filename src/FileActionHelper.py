@@ -70,8 +70,8 @@ class FileActionHelper:
         text_file_full_path = FileActionHelper.get_file_path_by_config_key(extension,
                                                                            Constants.COMPATIBLE_SHOP_RELEASES_FILE)
         with open(text_file_full_path, 'r') as text_file:
-            text_array = text_file.readlines()
-        return text_array
+            text_list = text_file.readlines()
+        return text_list
 
     @staticmethod
     def get_changelog_markdown_entries(extension):
@@ -91,10 +91,12 @@ class FileActionHelper:
         :return: BeautifulSoup tag
         """
         soup, markdown_entries = FileActionHelper.get_changelog_markdown_entries(extension)
-        position = 0
+        position = None
         for entry in markdown_entries:
-            if last_released_version in entry:
+            if last_released_version in entry.string:
                 position = markdown_entries.index(entry)
+        if position is None:
+            raise Exception("There is no entry with this release version in the changelog")
         if entry_part == 'table':
             return soup.find_all(Constants.TABLE_TAG_IN_CHANGELOG)[position]
         if entry_part == 'comments':

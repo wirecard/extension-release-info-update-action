@@ -6,9 +6,9 @@ inputs:
     required: true
     default: ''
   action:
-    description: 'Choose what the cation should do, update_changelog, check_changlog_updated'
+    description: 'Choose what the cation should do, initial_changelog_update, check_changlog_updated'
     required: true
-    default: 'update_changelog'
+    default: 'initial_changelog_update'
 runs:
   using: 'docker'
   image: 'Dockerfile'
