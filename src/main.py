@@ -42,9 +42,11 @@ if __name__ == "__main__":
                         choices=['initial_changelog_update', 'check_changlog_updated'])
 
     args = parser.parse_args()
-    extension_name = Constants.EXTENSION_NAMING_CONVENTION[args.repository]
+    try:
+        extension_name = Constants.EXTENSION_NAMING_CONVENTION[args.repository]
+    except KeyError:
+        raise Exception("Unknown extension name {}".format(args.repository))
     action = args.action
-
     version_extension = ExtensionVersion()
     add_new_changelog_entry(extension_name)
     # version_compatibility = VersionCompatibility(extension_name,

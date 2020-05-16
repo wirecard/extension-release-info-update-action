@@ -101,3 +101,13 @@ class FileActionHelper:
             return soup.find_all(Constants.TABLE_TAG_IN_CHANGELOG)[position]
         if entry_part == 'comments':
             return soup.find_all(Constants.COMMENTS_TAG_IN_CHANGELOG)[position]
+
+    @staticmethod
+    def get_data_from_internal_files():
+        """
+        Returns data from json file containing shop extension internal file list
+        :return:
+        """
+        with open(Constants.SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH, 'r') as config_files_json:
+            json_content = json.loads(config_files_json.read())
+            return json_content
