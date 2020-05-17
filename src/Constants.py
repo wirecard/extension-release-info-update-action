@@ -33,7 +33,6 @@ class Constants:
     NEW_LINE = '\n'
 
     # values
-    # SHOP_EXTENSION_PARTNER = 'wirecard'
     EXTENSION_NAMING_CONVENTION = {
         "paymentSDK-php": "paymentsdk",
         "prestashop-ee": "prestashop",
