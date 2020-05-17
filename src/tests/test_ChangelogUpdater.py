@@ -1,13 +1,13 @@
 from unittest import TestCase
-from src.ChangelogUpdater import ChangelogUpdater
+from src.ChangelogUpdater import ChangelogFileUpdater
 
 
 class TestChangelogUpdater(TestCase):
     def setUp(self) -> None:
-        self.changelog_updater = ChangelogUpdater('woocommerce', 'v3.2.2', 'v3.2.1', ['7.1', '7.2'],
-                                                  ['7.2'], ['3.3.4', '3.8.0'], ['3.8.0'])
-        self.changelog_updater_with_platform = ChangelogUpdater('woocommerce', 'v3.2.2', 'v3.2.1', ['7.1', '7.2'],
-                                                  ['7.2'], ['3.3.4', '3.8.0'], ['3.8.0'], ['5.0.3', '5.3'], ['5.3'])
+        self.changelog_updater = ChangelogFileUpdater('woocommerce', 'v3.2.2', 'v3.2.1', ['7.1', '7.2'],
+                                                      ['7.2'], ['3.3.4', '3.8.0'], ['3.8.0'])
+        self.changelog_updater_with_platform = ChangelogFileUpdater('woocommerce', 'v3.2.2', 'v3.2.1', ['7.1', '7.2'],
+                                                                    ['7.2'], ['3.3.4', '3.8.0'], ['3.8.0'], ['5.0.3', '5.3'], ['5.3'])
 
     def test_get_compatible_php_versions_table_header_string(self):
         new_table_row = self.changelog_updater.get_compatible_php_versions_table_header_string(
@@ -104,7 +104,7 @@ class TestChangelogUpdater(TestCase):
                          "| " + u"\u2705" + " "
                          "| " + u"\u2705" + " |", new_table_row)
 
-    def test_get_index_of_first_cell_containing_text(self):
+    def test_get_row_separator_table_row(self):
         new_table_row = self.changelog_updater.get_row_separator_table_row(
             "|-----------------------"
             "|------------------------------------------------------------------"

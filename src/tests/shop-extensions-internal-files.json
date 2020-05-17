@@ -1,36 +1,24 @@
 {
-  "woocommerce": [
+  "woocommerce":
     {
-      "filename": "woocommerce-wirecard-payment-gateway.php",
-      "extension_version": "Version"
+      "woocommerce-wirecard-payment-gateway.php":
+      {
+        "extension_version": "Version:",
+        "shopsystem_tested_highest_version": "WC tested up to:",
+        "shopsystem_compatible_lowest_version" : "WC requires at least:"
+      },
+      "readme.txt":
+    {
+        "extension_version": "Stable tag:",
+        "php_compatible_lowest_version": "Requires PHP:",
+        "platform_compatible_lowest_version": "Requires at least:",
+        "platform_compatible_highest_version": "Tested up to:",
+        "changelog_entries": "== Changelog =="
     },
-    {
-      "filename": "readme.txt",
-      "extension_version": "Stable tag",
-      "php_lowest_version": "Requires PHP",
-      "wordpress_version": "Requires at least",
-      "woocommerce_highest_version": "Tested up to",
-      "changelog_info": "== Changelog =="
-    },
-    {
-      "filename": "README"
+      "README.md": {
+        "php_versions": "http://www.php.net",
+        "shopsystem_compatible_highest_version": "https://woocommerce.com/",
+        "platform_compatible_highest_version": "https://wordpress.org/"
+      }
     }
-  ],
-    "magento2": [
-    {
-      "filename": "woocommerce-wirecard-payment-gateway.php",
-      "extension_version": "Version"
-    },
-    {
-      "filename": "readme.txt",
-      "extension_version": "Stable tag",
-      "php_lowest_version": "Requires PHP",
-      "wordpress_version": "Requires at least",
-      "woocommerce_highest_version": "Tested up to",
-      "changelog_info": "== Changelog =="
-    },
-    {
-      "filename": "README"
-    }
-  ]
 }

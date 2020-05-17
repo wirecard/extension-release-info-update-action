@@ -3,6 +3,7 @@ from bs4 import element
 import html2markdown
 from src.Constants import Constants
 from src.StringActionHelper import StringActionHelper
+from src.FileUpdater import FileUpdater
 import os
 
 
@@ -30,7 +31,7 @@ def get_new_table_row(cell_list, new_cell_index, new_cells):
     return Constants.TABLE_COLUMN_SPLITTER_IN_CHANGELOG.join(new_table_row)
 
 
-class ChangelogUpdater:
+class ChangelogFileUpdater(FileUpdater):
 
     def __init__(self,
                  extension,
@@ -42,15 +43,15 @@ class ChangelogUpdater:
                  shopsystem_tested_versions,
                  platform_compatibility_versions=None,
                  platform_tested_versions=None):
-        self.extension = extension
-        self.release_candidate_version = release_candidate_version
-        self.last_released_version = last_released_version
-        self.php_compatibility_versions = php_compatibility_versions
-        self.php_tested_versions = php_tested_versions
-        self.shopsystem_compatibility_versions = shopsystem_compatibility_versions
-        self.shopsystem_tested_versions = shopsystem_tested_versions
-        self.platform_compatibility_versions = platform_compatibility_versions
-        self.platform_tested_versions = platform_tested_versions
+        super().__init__(extension,
+                         release_candidate_version,
+                         last_released_version,
+                         php_compatibility_versions,
+                         php_tested_versions,
+                         shopsystem_compatibility_versions,
+                         shopsystem_tested_versions,
+                         platform_compatibility_versions,
+                         platform_tested_versions)
 
     def add_new_release_entry_to_changelog(self):
         """
@@ -106,7 +107,7 @@ class ChangelogUpdater:
         :return: string
         """
         table_cells = table_row.split(Constants.TABLE_COLUMN_SPLITTER_IN_CHANGELOG)
-        first_php_index = self.get_index_of_first_cell_containing_text(table_cells, Constants.PHP_IN_CHANGELOG)
+        first_php_index = FileUpdater.get_index_of_first_list_entry_containing_text(table_cells, Constants.PHP_IN_CHANGELOG)
         new_php_cells = []
         for version in self.php_compatibility_versions:
             new_php_cells.append(" {} {} ".format(Constants.PHP_IN_CHANGELOG, version))
@@ -190,19 +191,18 @@ class ChangelogUpdater:
         :return: string
         """
         table_cells = table_row.split(Constants.TABLE_COLUMN_SPLITTER_IN_CHANGELOG)
-        first_special_cell_index = self.get_index_of_first_cell_containing_text(table_cells, ":")
+        first_special_cell_index = FileUpdater.get_index_of_first_list_entry_containing_text(table_cells, ":")
         new_special_cells = [Constants.ROW_SEPARATOR_IN_CHANGELOG for i in self.php_compatibility_versions]
         return get_new_table_row(table_cells, first_special_cell_index, new_special_cells)
 
-    @staticmethod
-    def get_index_of_first_cell_containing_text(cell_list, text) -> int:
-        """
-        Returns index of first cell from containing text from cell list
-        :return: int
-        """
-        cells_containing_text = [s for s in cell_list if text in s]
-        return cell_list.index(cells_containing_text[0])
-
+    # @staticmethod
+    # def get_index_of_first_cell_containing_text(cell_list, text) -> int:
+    #     """
+    #     Returns index of first cell from containing text from cell list
+    #     :return: int
+    #     """
+    #     cells_containing_text = [s for s in cell_list if text in s]
+    #     return cell_list.index(cells_containing_text[0])
 
 # changelog = ChangelogUpdater('woocommerce', 'v3.2.2', 'v3.2.1', ['7.1', '7.2'],
 #                              ['7.2'], ['3.3.6', '3.9.0'], ['3.8.0'], ['1.1.1'], ['1.1.1', '2.2.2'])

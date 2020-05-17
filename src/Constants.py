@@ -1,13 +1,23 @@
 class Constants:
-    # SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH = '/usr/bin/shop-extensions-internal-files.json'
+
+   #  File names
+   # SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH = '/usr/bin/shop-extensions-internal-files.json'
     # SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH = '/usr/bin/shop-extensions-internal-files.json'
     SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH = 'shop-extensions-internal-files.json'
     SHOP_EXTENSION_CONFIG_FILES_JSON_FILE_PATH = 'shop-extensions-config-files.json'
+
+    # File name hints
     UNIT_TEST_WORKFLOW = 'unit_test_workflow'
     UI_TEST_WORKFLOW = 'ui_test_workflow'
     CHANGELOG_FILE = 'changelog_file'
     COMPATIBLE_SHOP_RELEASES_FILE = 'compatible_shop_releases_file'
-    SHOP_EXTENSION_PARTNER = 'wirecard'
+    README_FILE = "README"
+
+    # special strings
+    INTERNAL_CHANGELOG_ENTRY_NAME = '== Changelog =='
+    PHP_IN_README_ENTRY_NAME = "php_versions"
+
+    # special strings in CHANGELOG.md file
     COMPATIBILITY_IN_CHANGELOG = "Compatibility"
     TESTED_IN_CHANGELOG = "Tested"
     OVERVIEW_IN_CHANGELOG = "Overview"
@@ -22,6 +32,8 @@ class Constants:
     ROW_SEPARATOR_IN_CHANGELOG = ":-------:"
     NEW_LINE = '\n'
 
+    # values
+    # SHOP_EXTENSION_PARTNER = 'wirecard'
     EXTENSION_NAMING_CONVENTION = {
         "paymentSDK-php": "paymentsdk",
         "prestashop-ee": "prestashop",

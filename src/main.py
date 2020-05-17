@@ -4,7 +4,7 @@ from src.ExtensionVersion import ExtensionVersion
 from src.ShopSystemVersion import ShopSystemVersion
 from src.Constants import Constants
 from src.ChangelogEntry import ChangelogEntry
-from src.ChangelogUpdater import ChangelogUpdater
+from src.ChangelogUpdater import ChangelogFileUpdater
 
 
 def add_new_changelog_entry(extension_name):
@@ -19,17 +19,17 @@ def add_new_changelog_entry(extension_name):
     # TODO when using real repository uncomment and remove hardcoded versions
     # shopsystem_version = ShopSystemVersion(extension_name, extension_version.get_last_released_version(semver=True))
 
-    changelog_updater = ChangelogUpdater(extension_name,
+    changelog_updater = ChangelogFileUpdater(extension_name,
                                          "v3.2.2",
                                          "v3.2.1",
-                                         # extension_version.get_release_candidate_version(semver=True),
-                                         # extension_version.get_last_released_version(semver=True),
-                                         php_version.get_compatible_php_versions_from_config(),
-                                         php_version.get_tested_php_versions_from_config(),
-                                         shopsystem_version.get_compatible_shopsystem_versions_range(),
-                                         shopsystem_version.get_tested_shopsystem_versions_range(),
-                                         shopsystem_version.get_compatible_platform_versions_range(),
-                                         shopsystem_version.get_tested_platform_versions_range())
+                                             # extension_version.get_release_candidate_version(semver=True),
+                                             # extension_version.get_last_released_version(semver=True),
+                                             php_version.get_compatible_php_versions_from_config(),
+                                             php_version.get_tested_php_versions_from_config(),
+                                             shopsystem_version.get_compatible_shopsystem_versions_range(),
+                                             shopsystem_version.get_tested_shopsystem_versions_range(),
+                                             shopsystem_version.get_compatible_platform_versions_range(),
+                                             shopsystem_version.get_tested_platform_versions_range())
     changelog_updater.add_new_release_entry_to_changelog()
 
 
