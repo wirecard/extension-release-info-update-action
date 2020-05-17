@@ -1,0 +1,5 @@
+.idea/
+src/__pycache__/
+src/shop-extensions-internal-files.json
+src/shop-extensions-config-files.json
+venv
