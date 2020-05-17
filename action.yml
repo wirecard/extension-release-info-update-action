@@ -8,9 +8,10 @@ inputs:
   action:
     description: 'Choose what the cation should do, initial_changelog_and_version_update, check_changlog_updated'
     required: true
-    default: 'initial_changelog_update'
+    default: 'initial_changelog_and_version_update'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.repository }}
+    - ${{ inputs.action }}
