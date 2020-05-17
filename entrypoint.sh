@@ -2,4 +2,4 @@
 
 set -e
 
-python /usr/bin/main.py repository "$1" action "$2"
+python /github/workspace/src/main.py repository "$1" action "$2"
