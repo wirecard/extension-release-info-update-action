@@ -30,26 +30,27 @@ class InternalFileUpdater(FileUpdater):
         self.set_internal_files_entry_to_output_info_dict()
 
     def set_internal_files_entry_to_output_info_dict(self):
+        def get_index(input_list, position):
+            if len(input_list) > 1:
+                if "lowest" in position:
+                    return 0
+                if "highest" in position:
+                    return -1
+            return 0
         self.internal_files_entry_to_output_info_dict["extension_version"] = self.release_candidate_version
         self.internal_files_entry_to_output_info_dict["shopsystem_tested_highest_version"] = \
-            (sorted(self.shopsystem_tested_versions)[-1] if len(
-                self.shopsystem_tested_versions) > 1 else self.shopsystem_tested_versions[0])
+            sorted(self.shopsystem_tested_versions)[get_index(self.shopsystem_tested_versions, "highest")]
         self.internal_files_entry_to_output_info_dict["shopsystem_compatible_lowest_version"] = \
-            (sorted(self.shopsystem_compatibility_versions)[0] if len(
-                self.shopsystem_compatibility_versions) > 1 else self.shopsystem_compatibility_versions[0])
+            sorted(self.shopsystem_compatibility_versions)[get_index(self.shopsystem_compatibility_versions, "lowest")]
         self.internal_files_entry_to_output_info_dict["shopsystem_compatible_highest_version"] = \
-            (sorted(self.shopsystem_compatibility_versions)[-1] if len(
-                self.shopsystem_compatibility_versions) > 1 else self.shopsystem_compatibility_versions[0])
+            sorted(self.shopsystem_compatibility_versions)[get_index(self.shopsystem_compatibility_versions, "highest")]
         self.internal_files_entry_to_output_info_dict["php_compatible_lowest_version"] = \
-            (sorted(self.php_compatibility_versions)[0] if len(
-                self.php_compatibility_versions) > 1 else self.php_compatibility_versions[0])
+            sorted(self.php_compatibility_versions)[get_index(self.php_compatibility_versions, "lowest")]
         if self.platform_compatibility_versions:
             self.internal_files_entry_to_output_info_dict["platform_compatible_lowest_version"] = \
-                (sorted(self.platform_compatibility_versions)[0] if len(
-                    self.platform_compatibility_versions) > 1 else self.platform_compatibility_versions[0])
+                sorted(self.platform_compatibility_versions)[get_index(self.platform_compatibility_versions, "lowest")]
             self.internal_files_entry_to_output_info_dict["platform_compatible_highest_version"] = \
-                (sorted(self.platform_compatibility_versions)[-1] if len(
-                    self.platform_compatibility_versions) > 1 else self.platform_compatibility_versions[0])
+                sorted(self.platform_compatibility_versions)[get_index(self.platform_compatibility_versions, "highest")]
 
     def update_files(self):
         """
@@ -136,4 +137,3 @@ class InternalFileUpdater(FileUpdater):
         else:
             file_lines[replace_index] = re.sub('\d\.\d', new_line, file_lines[replace_index])
         return file_lines
-

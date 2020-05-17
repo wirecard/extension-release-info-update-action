@@ -29,11 +29,3 @@ class FileUpdater:
         cells_containing_text = [s for s in entry_list if text in s]
         return entry_list.index(cells_containing_text[0])
 
-    # @staticmethod
-    # def get_index_of_last_list_entry_containing_text(entry_list, text) -> int:
-    #     """
-    #     Returns index of first element from containing text from list
-    #     :return: int
-    #     """
-    #     cells_containing_text = [s for s in entry_list if text in s]
-    #     return entry_list.index(cells_containing_text[-1])

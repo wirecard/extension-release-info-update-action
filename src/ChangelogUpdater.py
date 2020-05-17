@@ -1,10 +1,9 @@
 from src.FileActionHelper import FileActionHelper
-from bs4 import element
-import html2markdown
 from src.Constants import Constants
 from src.StringActionHelper import StringActionHelper
 from src.FileUpdater import FileUpdater
-import os
+from bs4 import element
+import html2markdown
 
 
 def get_first_sign_in_table_row_index(table_cells) -> int:
@@ -106,7 +105,8 @@ class ChangelogFileUpdater(FileUpdater):
         :return: string
         """
         table_cells = table_row.split(Constants.TABLE_COLUMN_SPLITTER_IN_CHANGELOG)
-        first_php_index = FileUpdater.get_index_of_first_list_entry_containing_text(table_cells, Constants.PHP_IN_CHANGELOG)
+        first_php_index = FileUpdater.get_index_of_first_list_entry_containing_text(table_cells,
+                                                                                    Constants.PHP_IN_CHANGELOG)
         new_php_cells = []
         for version in self.php_compatibility_versions:
             new_php_cells.append(" {} {} ".format(Constants.PHP_IN_CHANGELOG, version))
@@ -193,16 +193,3 @@ class ChangelogFileUpdater(FileUpdater):
         first_special_cell_index = FileUpdater.get_index_of_first_list_entry_containing_text(table_cells, ":")
         new_special_cells = [Constants.ROW_SEPARATOR_IN_CHANGELOG for i in self.php_compatibility_versions]
         return get_new_table_row(table_cells, first_special_cell_index, new_special_cells)
-
-    # @staticmethod
-    # def get_index_of_first_cell_containing_text(cell_list, text) -> int:
-    #     """
-    #     Returns index of first cell from containing text from cell list
-    #     :return: int
-    #     """
-    #     cells_containing_text = [s for s in cell_list if text in s]
-    #     return cell_list.index(cells_containing_text[0])
-
-# changelog = ChangelogUpdater('woocommerce', 'v3.2.2', 'v3.2.1', ['7.1', '7.2'],
-#                              ['7.2'], ['3.3.6', '3.9.0'], ['3.8.0'], ['1.1.1'], ['1.1.1', '2.2.2'])
-# changelog.add_new_release_entry_to_changelog()

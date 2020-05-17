@@ -1,8 +1,8 @@
+from src.Constants import Constants
 import os
 import json
 import yaml
 import markdown
-from src.Constants import Constants
 from bs4 import BeautifulSoup
 
 

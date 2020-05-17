@@ -18,7 +18,7 @@ class StringActionHelper:
         Returns index of first digit in string
         :return: int
         """
-        m = re.search(r"\d", string)
+        m = re.search(r'\d', string)
         if m is not None:
             return m.start()
 
@@ -28,7 +28,7 @@ class StringActionHelper:
         Returns negative index of last digit in string
         :return: int or Nona
         """
-        m = re.search(r"\d", string[::-1])
+        m = re.search(r'\d', string[::-1])
         if m is not None:
             if m.start() == 0:
                 return None
