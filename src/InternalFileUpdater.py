@@ -57,6 +57,7 @@ class InternalFileUpdater(FileUpdater):
         """
         shop_extension_file_list = FileActionHelper.get_data_from_internal_files()[self.extension]
         for file_name, replace_hint_entries in shop_extension_file_list.items():
+            print("Updating {}".format(file_name))
             file_lines = self.get_updated_file_lines(file_name, replace_hint_entries)
             with open(FileActionHelper.get_file_path(file_name), 'w') as internal_file:
                 internal_file.writelines(file_lines)

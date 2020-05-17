@@ -70,9 +70,8 @@ class ChangelogFileUpdater(FileUpdater):
         self.update_table_rows(table_entry_contents)
         soup.h2.insert_after(table_entry)
         soup.p.insert_before(element.NavigableString(Constants.NEW_LINE))
-        # TODO: Replace with real CHANGELOG file
-        print(os.getcwd())
-        with open('CHANGELOG2.md', 'w') as f:
+        print("Updating CHANGELOG file")
+        with open(FileActionHelper.get_file_path_by_config_key(self.extension, Constants.CHANGELOG_FILE), 'w') as f:
             f.write(html2markdown.convert(str(soup)))
 
     def update_table_rows(self, table_entry_contents):
