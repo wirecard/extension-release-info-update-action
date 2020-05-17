@@ -3,6 +3,8 @@
 ## v3.2.1
 
 *   Fix archive size for partners
+* test1
+* test2
 
 |  Overview             | Woocommerce and Wordpress version                                | PHP 5.6 | PHP 7.0 | PHP 7.1 | PHP 7.2 |  
 |-----------------------|------------------------------------------------------------------|:-------:|:-------:|:-------:|:-------:|  
