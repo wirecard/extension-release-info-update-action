@@ -6,7 +6,7 @@ inputs:
     required: true
     default: ''
   action:
-    description: 'Choose what the cation should do, initial_changelog_update, check_changlog_updated'
+    description: 'Choose what the cation should do, initial_changelog_and_version_update, check_changlog_updated'
     required: true
     default: 'initial_changelog_update'
 runs:

@@ -3,14 +3,14 @@
  * Plugin Name: Wirecard WooCommerce Extension
  * Plugin URI: https://github.com/wirecard/woocommerce-ee
  * Description: Payment Gateway for WooCommerce
- * Version: 3.2.2
+ * Version: 3.2.1
  * Author: Wirecard AG
  * Author URI: https://www.wirecard.com/
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: wirecard-woocommerce-extension
  * Domain Path: /languages
- * WC requires at least: 3.3.6
+ * WC requires at least: 3.3.4
  * WC tested up to: 3.8.0
  *
  * Shop System Plugins - Terms of Use
