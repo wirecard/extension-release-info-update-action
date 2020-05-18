@@ -3,19 +3,19 @@
 This action automates bumping versions during release process of Wirecard extensions.
 # What it does
 This action can do
-- Updating version information in files listed in ````shop-extensions-internal-files.json````. 
+- Update version information in files listed in ````shop-extensions-internal-files.json````. 
     
-    The versions are taken accordingly
+    The versions are taken accordingly:
      - extension last released version  - taken from last git tag
      - extension current release version - taken from current branch name
-     - php compatible versions - taken from unit tests (see ````shop-extensions-config-files.json````)
-     - php tested versions - taken from UI tests (see ````shop-extensions-config-files.json````)
+     - php compatible versions - taken from unit test settings (see ````shop-extensions-config-files.json````)
+     - php tested versions - taken from UI test settings (see ````shop-extensions-config-files.json````)
      - shop system tested version - taken from UI test settings ((see ````shop-extensions-config-files.json````) -> ````.bin/compatible-shop-releases.txt first```` line)
      - shop system compatible version - taken from previous changelog entry ((see ````shop-extensions-config-files.json````))
      - platform tested version - taken from previous changelog entry (if applicable) (see ````shop-extensions-config-files.json````)
      - platform compatible version - taken from previous changelog entry (if applicable) (see ````shop-extensions-config-files.json````)
 
-- Updating version information in files listed in ````shop-extensions-internal-files.json```` and config files (files listed in ````shop-extensions-config-files.json````)
+- Update version information in files listed in ````shop-extensions-internal-files.json```` and config files (files listed in ````shop-extensions-config-files.json````)
  
     Further information will be completed
 
@@ -31,7 +31,6 @@ Simply add the action to your workflow
 
 ````
 And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
-Below you can find an [example configuration](#example-shop-extensionjson). 
 
 ### Mandatory example shop-extension-internal-files.json
 ````json
