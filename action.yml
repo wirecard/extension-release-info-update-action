@@ -1,5 +1,5 @@
-name: 'Manage release information in extension files'
-description: 'Automatically change release version'
+name: 'Update release information in extension files'
+description: 'Automatically update information release information'
 inputs:
   repository:
     description: 'Repository name'
