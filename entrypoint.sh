@@ -7,5 +7,4 @@ export PYTHONPATH=/github/workspace/
 export PYTHONUNBUFFERED=1
 cd /github/workspace/
 
-python src/main.py "woocommerce-ee" "initial_changelog_and_version_update"
-
+python src/main.py "$1" "$2"
