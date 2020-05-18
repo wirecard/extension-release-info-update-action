@@ -1,5 +1,11 @@
 #!/bin/sh -l
 
 set -e
+cp -r /usr/bin/*json /github/workspace/
+cp -r /usr/bin/src/ /github/workspace/
+export PYTHONPATH=/github/workspace/
+export PYTHONUNBUFFERED=1
+cd /github/workspace/
 
-python /github/workspace/src/main.py repository "$1" action "$2"
+python src/main.py "woocommerce-ee" "initial_changelog_and_version_update"
+

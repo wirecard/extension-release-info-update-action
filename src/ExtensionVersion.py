@@ -31,8 +31,8 @@ class ExtensionVersion:
         """
         Sets last release version from git tag
         """
-        tag = self.repo.git.tag(l=True)
-        self.last_released_version = tag
+        tag = str(self.repo.tags[-1])
+        self.last_released_version = tag.replace('v', '')
 
     def get_last_released_version(self, semver=False) -> str:
         """

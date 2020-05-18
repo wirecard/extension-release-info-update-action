@@ -16,15 +16,13 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
     """
     php_version = PhpVersion(extension_name)
     extension_version = ExtensionVersion()
-    shopsystem_version = ShopSystemVersion(extension_name, "v3.2.1")
-    # TODO when using real repository uncomment and remove hardcoded versions
-    # shopsystem_version = ShopSystemVersion(extension_name, extension_version.get_last_released_version(semver=True))
+    print("extension rc version = {}".format(extension_version.get_release_candidate_version(semver=True)))
+    print("extension last version = {}".format(extension_version.get_last_released_version(semver=True)))
+    shopsystem_version = ShopSystemVersion(extension_name, extension_version.get_last_released_version(semver=True))
 
     changelog_updater = ChangelogFileUpdater(extension_name,
-                                             "v3.2.2",
-                                             "v3.2.1",
-                                             # extension_version.get_release_candidate_version(semver=True),
-                                             # extension_version.get_last_released_version(semver=True),
+                                             extension_version.get_release_candidate_version(semver=True),
+                                             extension_version.get_last_released_version(semver=True),
                                              php_version.get_compatible_php_versions_from_config(),
                                              php_version.get_tested_php_versions_from_config(),
                                              shopsystem_version.get_compatible_shopsystem_versions_range(),
@@ -33,10 +31,8 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
                                              shopsystem_version.get_tested_platform_versions_range())
     changelog_updater.add_new_release_entry_to_changelog()
     internal_file_updater = InternalFileUpdater(extension_name,
-                                                "3.2.2",
-                                                "3.2.1",
-                                                # extension_version.get_release_candidate_version(),
-                                                # extension_version.get_last_released_version(),
+                                                extension_version.get_release_candidate_version(),
+                                                extension_version.get_last_released_version(),
                                                 php_version.get_compatible_php_versions_from_config(),
                                                 php_version.get_tested_php_versions_from_config(),
                                                 shopsystem_version.get_compatible_shopsystem_versions_range(),
@@ -64,8 +60,6 @@ if __name__ == "__main__":
     version_extension = ExtensionVersion()
     if args.action == "initial_changelog_and_version_update":
         add_new_changelog_entry_and_update_internal_files(extension_name)
-    # version_compatibility = VersionCompatibility(extension_name,
-    #                                              version_extension.get_last_released_version(True))
 
 #   if action == check_changlog_updated
 #       get all versions from changelog
