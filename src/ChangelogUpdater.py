@@ -69,7 +69,7 @@ class ChangelogFileUpdater(FileUpdater):
         self.update_table_rows(table_entry_contents)
         soup.h2.insert_after(table_entry)
         soup.p.insert_before(element.NavigableString(Constants.NEW_LINE))
-        print("Updating CHANGELOG file")
+        print("{} Updating CHANGELOG file {}".format(Constants.PRETTY_LOG_ADDITION, Constants.PRETTY_LOG_ADDITION))
         with open(FileActionHelper.get_file_path_by_config_key(self.extension, Constants.CHANGELOG_FILE), 'w') as f:
             f.write(html2markdown.convert(str(soup)))
 

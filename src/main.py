@@ -17,8 +17,13 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
     """
     php_version = PhpVersion(extension_name)
     extension_version = ExtensionVersion()
-    print("extension rc version = {}".format(extension_version.get_release_candidate_version(semver=True)))
-    print("extension last version = {}".format(extension_version.get_last_released_version(semver=True)))
+    print("{} Release candidate version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
+                                                       extension_version.get_release_candidate_version(semver=True),
+                                                       Constants.PRETTY_LOG_ADDITION))
+    print("{} Last released version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
+                                                   extension_version.get_last_released_version(semver=True),
+                                                   Constants.PRETTY_LOG_ADDITION))
+
     shopsystem_version = ShopSystemVersion(extension_name, extension_version.get_last_released_version(semver=True))
 
     changelog_updater = ChangelogFileUpdater(extension_name,
@@ -49,8 +54,8 @@ if __name__ == "__main__":
                         help='shop extension name e.g. woocommerce-ee')
     parser.add_argument('action', metavar='action name', type=str,
                         help='the action to be performed e.g. initial_changelog_and_version_update, '
-                             'check_changlog_updated',
-                        choices=['initial_changelog_and_version_update', 'check_changlog_updated'])
+                             'check_changelog_updated',
+                        choices=['initial_changelog_and_version_update', 'check_changelog_updated'])
 
     args = parser.parse_args()
     try:
@@ -58,17 +63,10 @@ if __name__ == "__main__":
     except KeyError:
         raise Exception("Unknown extension name {}".format(args.repository))
     action = args.action
-    # version_extension = ExtensionVersion()
-    print("=======DEBUG INFORMATION==============\n")
-    print("Current working dir: {} \n".format(os.getcwd()))
-    files = [f for f in os.listdir('.')]
-    print("File list: {} \n".format(files))
-
-    print("=======================================\n")
     if args.action == "initial_changelog_and_version_update":
         add_new_changelog_entry_and_update_internal_files(extension_name)
 
-#   if action == check_changlog_updated
+#   if action == check_changelog_updated
 #       get all versions from changelog
 #       get all versions from config
 #       check if config file versions are different with versions from config

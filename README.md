@@ -3,7 +3,7 @@
 This action automates bumping versions during release process of Wirecard extensions.
 # What it does
 This action can do
-- Update version information in files listed in ````shop-extensions-internal-files.json````. 
+- Create new entry in CHANGELOG file and update version information in files listed in ````shop-extensions-internal-files.json````. 
     
     The versions are taken accordingly:
      - extension last released version  - taken from last git tag
@@ -15,22 +15,47 @@ This action can do
      - platform tested version - taken from previous changelog entry (if applicable) (see ````shop-extensions-config-files.json````)
      - platform compatible version - taken from previous changelog entry (if applicable) (see ````shop-extensions-config-files.json````)
 
-- Update version information in files listed in ````shop-extensions-internal-files.json```` and config files (files listed in ````shop-extensions-config-files.json````)
+- Update version information in files listed in ````shop-extensions-internal-files.json```` and config files (files listed in ````shop-extensions-config-files.json````) according to information from CHANGELOG file
  
     Further information will be completed
 
 ## How to setup
+1. Setting up creating new entry in CHANGELOG file and updating version information in files listed workflow
 
-Simply add the action to your workflow
-````
-- name: Bump all versions
-  uses: wirecard/extension-release-info-update-action@master
-  with:
-    repository: <repository-name>
-    action: initial_changelog_and_version_update
+    Simply add the action to your workflow
+    ````
+   - name: Checkout ${{ github.event.repository.name }}
+      uses: wirecard/checkout@v2.0.0
+      with:
+        ref: ${{ github.head_ref }}
+   - name: Get tags
+      run: git fetch --prune --unshallow  
+   - name: Bump all versions
+      uses: wirecard/extension-release-info-update-action@master
+      with:
+        repository: <repository-name>
+        action: initial_changelog_and_version_update
+    
+    ````
+    And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
 
-````
-And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
+2. Setting up updating version information according to information in CHANGELOG workflow
+    Simply add the action to your workflow
+    ````
+   - name: Checkout ${{ github.event.repository.name }}
+      uses: wirecard/checkout@v2.0.0
+      with:
+        ref: ${{ github.head_ref }}
+   - name: Get tags
+      run: git fetch --prune --unshallow 
+   - name: Bump all versions
+      uses: wirecard/extension-release-info-update-action@master
+      with:
+        repository: <repository-name>
+        action: check_changelog_updated
+    
+    ````
+    And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
 
 ### Mandatory example shop-extension-internal-files.json
 ````json
