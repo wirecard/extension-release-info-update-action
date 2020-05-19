@@ -6,6 +6,7 @@ from src.ChangelogEntry import ChangelogEntry
 from src.ChangelogUpdater import ChangelogFileUpdater
 from src.InternalFileUpdater import InternalFileUpdater
 import argparse
+import os
 
 
 def add_new_changelog_entry_and_update_internal_files(extension_name):
@@ -58,6 +59,12 @@ if __name__ == "__main__":
         raise Exception("Unknown extension name {}".format(args.repository))
     action = args.action
     version_extension = ExtensionVersion()
+    print("=======DEBUG INFORMATION==============\n")
+    print("Current working dir: {} \n".format(os.getcwd()))
+    files = [f for f in os.listdir('.') if os.path.isfile(f)]
+    print("File list: {} \n".format(files))
+
+    print("=======================================\n")
     if args.action == "initial_changelog_and_version_update":
         add_new_changelog_entry_and_update_internal_files(extension_name)
 

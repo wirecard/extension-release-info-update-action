@@ -16,6 +16,8 @@ class ExtensionVersion:
         Sets current release candidate version from branch name
         """
         branch = self.repo.active_branch
+        print("=======DEBUG INFORMATION==============\n")
+        print("RC version {}\n".format( re.sub('[^\d\.]', '', branch.name)))
         self.release_candidate_version = re.sub('[^\d\.]', '', branch.name)
 
     def get_release_candidate_version(self, semver=False) -> str:
@@ -31,6 +33,8 @@ class ExtensionVersion:
         """
         Sets last release version from git tag
         """
+        print("=======DEBUG INFORMATION==============\n")
+        print("Git tags {}\n".format(self.repo.tags))
         tag = str(self.repo.tags[-1])
         self.last_released_version = tag.replace('v', '')
 
