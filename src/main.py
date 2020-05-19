@@ -61,7 +61,7 @@ if __name__ == "__main__":
     # version_extension = ExtensionVersion()
     print("=======DEBUG INFORMATION==============\n")
     print("Current working dir: {} \n".format(os.getcwd()))
-    files = [f for f in os.listdir('.') if os.path.isfile(f)]
+    files = [f for f in os.listdir('.')]
     print("File list: {} \n".format(files))
 
     print("=======================================\n")
