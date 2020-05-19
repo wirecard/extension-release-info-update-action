@@ -58,7 +58,7 @@ if __name__ == "__main__":
     except KeyError:
         raise Exception("Unknown extension name {}".format(args.repository))
     action = args.action
-    version_extension = ExtensionVersion()
+    # version_extension = ExtensionVersion()
     print("=======DEBUG INFORMATION==============\n")
     print("Current working dir: {} \n".format(os.getcwd()))
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
