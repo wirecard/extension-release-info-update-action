@@ -20,7 +20,6 @@ class ChangelogEntry:
         for comment in last_release_entry.find_all('li'):
             comments.append(comment.text)
         self.changelog_entries = comments
-        print(comments)
 
     def get_changelog_entries(self):
         """

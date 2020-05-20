@@ -20,7 +20,7 @@ This action can do
     Further information will be completed
 
 ## How to setup
-1. Setting up creating new entry in CHANGELOG file and updating version information in files listed workflow
+1. Setting up creating new entry in `CHANGELOG.md` file and updating version information in internal files
 
     Simply add the action to your workflow
     ````
@@ -33,13 +33,22 @@ This action can do
    - name: Bump all versions
       uses: wirecard/extension-release-info-update-action@master
       with:
-        repository: <repository-name>
+        repository: ${{ github.event.repository.name }}
         action: initial_changelog_and_version_update
+   - name: Set global git conf
+      run: git config --global user.email "" && git config --global user.name "github-actions"
+   - name: Commit files
+      run: git commit -m "Bump versions and add initial changelog entry" -a
+   - name: Push changes
+      uses: wirecard/github-push-action@master
+      with:
+        branch: ${{ github.head_ref }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     
     ````
     And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
 
-2. Setting up updating version information according to information in CHANGELOG workflow
+2. Setting up updating version information in internal files and workflows according to information in `CHANGELOG.md`
     Simply add the action to your workflow
     ````
    - name: Checkout ${{ github.event.repository.name }}
@@ -51,8 +60,15 @@ This action can do
    - name: Bump all versions
       uses: wirecard/extension-release-info-update-action@master
       with:
-        repository: <repository-name>
+        repository: ${{ github.event.repository.name }}
         action: check_changelog_updated
+   - name: Commit files
+      run: git commit -m "Bump versions and add initial changelog entry" -a
+   - name: Push changes
+      uses: wirecard/github-push-action@master
+      with:
+        branch: ${{ github.head_ref }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     
     ````
     And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
@@ -90,3 +106,7 @@ This action can do
 
 The ```main.py``` file is the main file called through ```entrypoint.sh``` in the container.  
 It calls the required objects in the correct order and executes the necessary methods.
+
+## Important notes
+
+If you use this action in the workflow together with ``commit`` and ``push`` actions do not expect the other automatic checks to be triggered after the push. Gitub Action workflows cannot trigger other workflows. See https://help.github.com/en/actions/reference/events-that-trigger-workflows
