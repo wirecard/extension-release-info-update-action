@@ -57,10 +57,11 @@ class ChangelogFileUpdater(FileUpdater):
         Adds new entry to changelog file
         """
         soup, changelog_data = FileActionHelper.get_changelog_markdown_entries(self.extension)
-        header_entry = soup.new_tag(Constants.RELEASE_HEADER_TAG_IN_CHANGELOG)
-        header_entry.string = self.release_candidate_version
-        soup.h2.insert_before(header_entry)
-        soup.h2.insert_after(element.NavigableString(Constants.NEW_LINE))
+        if soup.h2.string != self.release_candidate_version:
+            header_entry = soup.new_tag(Constants.RELEASE_HEADER_TAG_IN_CHANGELOG)
+            header_entry.string = self.release_candidate_version
+            soup.h2.insert_before(header_entry)
+            soup.h2.insert_after(element.NavigableString(Constants.NEW_LINE))
         table_entry = soup.new_tag(Constants.TABLE_TAG_IN_CHANGELOG)
         table_entry_contents = \
             FileActionHelper.get_changelog_markdown_entry_part(self.extension,
