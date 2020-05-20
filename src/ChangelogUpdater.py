@@ -2,22 +2,23 @@ from src.FileActionHelper import FileActionHelper
 from src.Constants import Constants
 from src.StringActionHelper import StringActionHelper
 from src.FileUpdater import FileUpdater
+from src.ChangelogTableHelper import ChangelogTableHelper
 from bs4 import element
 import html2markdown
 
 
-def get_first_sign_in_table_row_index(table_cells) -> int:
-    """
-    Returns index of the first special sign in a raw
-    :return: int
-    """
-    signs_in_table = []
-    for cell in table_cells:
-        if (Constants.TICK_SIGN_IN_CHANGELOG in cell) \
-                or (Constants.TICK_SIGN_IN_CHANGELOG_UNICODE in cell) \
-                or (Constants.CROSS_SIGN_IN_CHANGELOG in cell):
-            signs_in_table.append(cell)
-    return table_cells.index(signs_in_table[0])
+# def get_first_sign_in_table_row_index(table_cells) -> int:
+#     """
+#     Returns index of the first special sign in a raw
+#     :return: int
+#     """
+#     signs_in_table = []
+#     for cell in table_cells:
+#         if (Constants.TICK_SIGN_IN_CHANGELOG in cell) \
+#                 or (Constants.TICK_SIGN_IN_CHANGELOG_UNICODE in cell) \
+#                 or (Constants.CROSS_SIGN_IN_CHANGELOG in cell):
+#             signs_in_table.append(cell)
+#     return table_cells.index(signs_in_table[0])
 
 
 def get_new_table_row(cell_list, new_cell_index, new_cells):
@@ -83,7 +84,7 @@ class ChangelogFileUpdater(FileUpdater):
                 if Constants.OVERVIEW_IN_CHANGELOG in entry.string:
                     new_entry_text = self.get_compatible_php_versions_table_header_string(entry.string)
                     table_entry_contents[table_entry_contents.index(entry)].string.replace_with(new_entry_text)
-                if ":|" in entry.string:
+                if Constants.TABLE_ROW_COLUMN_SPLITTER_IN_CHANGELOG in entry.string:
                     new_entry_text = self.get_row_separator_table_row(entry.string)
                     table_entry_contents[table_entry_contents.index(entry)].string.replace_with(new_entry_text)
             if isinstance(entry, element.Tag):
@@ -124,7 +125,9 @@ class ChangelogFileUpdater(FileUpdater):
         for intersection_version in intersection_list:
             tick_positions.append(self.php_compatibility_versions.index(intersection_version))
         new_sign_cells = self.get_new_sign_cells(tick_positions)
-        return get_new_table_row(table_cells, get_first_sign_in_table_row_index(table_cells), new_sign_cells)
+        return get_new_table_row(table_cells,
+                                 ChangelogTableHelper.get_first_sign_in_table_row_index(table_cells),
+                                 new_sign_cells)
 
     def get_compatible_php_versions_table_string(self, table_row) -> str:
         """
@@ -134,7 +137,9 @@ class ChangelogFileUpdater(FileUpdater):
         table_cells = table_row.split(Constants.TABLE_COLUMN_SPLITTER_IN_CHANGELOG)
         tick_positions = [self.php_compatibility_versions.index(a) for a in self.php_compatibility_versions]
         new_sign_cells = self.get_new_sign_cells(tick_positions)
-        return get_new_table_row(table_cells, get_first_sign_in_table_row_index(table_cells), new_sign_cells)
+        return get_new_table_row(table_cells,
+                                 ChangelogTableHelper.get_first_sign_in_table_row_index(table_cells),
+                                 new_sign_cells)
 
     def get_new_sign_cells(self, tick_positions) -> list:
         """
