@@ -61,7 +61,7 @@ This action can do
       uses: wirecard/extension-release-info-update-action@master
       with:
         repository: ${{ github.event.repository.name }}
-        action: check_changelog_updated
+        action: check_and_update_versions_after_changelog_update
    - name: Commit files
       run: git commit -m "Bump versions and add initial changelog entry" -a
    - name: Push changes

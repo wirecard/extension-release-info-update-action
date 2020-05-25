@@ -2,7 +2,6 @@ from src.FileActionHelper import FileActionHelper
 from src.Constants import Constants
 from src.StringActionHelper import StringActionHelper
 from src.ChangelogTableHelper import ChangelogTableHelper
-from bs4 import element
 
 
 class PhpVersion:
@@ -56,6 +55,7 @@ class PhpVersion:
         """
         Sets tested php versions from changelog entry
         """
+        self.tested_php_versions_from_changelog = []
         self.set_compatible_php_versions_from_changelog()
         changelog_table = FileActionHelper.get_changelog_markdown_entry_part(self.extension,
                                                                              self.release_version, 'table')
@@ -73,6 +73,7 @@ class PhpVersion:
         """
         Sets compatible php versions from changelog entry
         """
+        self.compatible_php_versions_from_changelog = []
         changelog_table = FileActionHelper.get_changelog_markdown_entry_part(self.extension,
                                                                              self.release_version, 'table')
         table_cells = ChangelogTableHelper.get_php_version_list_from_table(changelog_table, "compatibility")
@@ -95,4 +96,3 @@ class PhpVersion:
         """
         self.set_compatible_php_versions_from_changelog()
         return self.compatible_php_versions_from_changelog
-

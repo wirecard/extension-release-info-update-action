@@ -39,7 +39,7 @@ class ShopSystemVersion:
         """
          Sets tested shop systems from config
          """
-        self.tested_shopsystem_versions_from_config_range = self.get_tested_version_range_from_config()
+        self.tested_shopsystem_versions_from_config_range = FileActionHelper.get_data_from_compatible_shop_releases_text_file(self.extension)
 
     def get_version_ranges(self, version_type):
         """
@@ -69,13 +69,6 @@ class ShopSystemVersion:
             compatibility_ranges.append(compatibility_version_range)
         return compatibility_ranges
 
-    def get_tested_version_range_from_config(self):
-        """
-        Returns range of tested versions from UI test config
-        :return: list
-        """
-        return FileActionHelper.get_data_from_compatible_shop_releases_text_file(self.extension)
-
     def get_compatible_shopsystem_versions_range(self) -> list:
         """
         Returns range of shop system compatibility versions
@@ -90,7 +83,7 @@ class ShopSystemVersion:
         """
         return self.compatible_platform_versions_range
 
-    def get_tested_shopsystem_versions_range(self) -> list:
+    def get_tested_shopsystem_versions_range_from_config(self) -> list:
         """
         Returns range of shop system tested versions from config
         :return: list
@@ -104,12 +97,14 @@ class ShopSystemVersion:
         """
         return self.tested_platform_versions_range
 
-    def set_tested_shopsystem_versions_from_changelog(self):
-        pass
+    def set_tested_shopsystem_versions_range_from_changelog(self):
+        tested_versions_ranges = self.get_version_ranges(Constants.TESTED_IN_CHANGELOG)
+        self.tested_shopsystem_versions_from_changelog_range = tested_versions_ranges[0].split('-')
 
-    def get_tested_shopsystem_versions_from_changelog(self) -> list:
+    def get_tested_shopsystem_versions_range_from_changelog(self) -> list:
         """
         Returns range of shopsystem tested versions from changelog
         :return: list
         """
+        self.set_tested_shopsystem_versions_range_from_changelog()
         return self.tested_shopsystem_versions_from_changelog_range

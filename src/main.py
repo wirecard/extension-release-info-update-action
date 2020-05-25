@@ -32,7 +32,7 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
                                              php_version.get_compatible_php_versions_from_config(),
                                              php_version.get_tested_php_versions_from_config(),
                                              shopsystem_version.get_compatible_shopsystem_versions_range(),
-                                             shopsystem_version.get_tested_shopsystem_versions_range(),
+                                             shopsystem_version.get_tested_shopsystem_versions_range_from_config(),
                                              shopsystem_version.get_compatible_platform_versions_range(),
                                              shopsystem_version.get_tested_platform_versions_range())
     changelog_updater.add_new_release_entry_to_changelog()
@@ -42,10 +42,42 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
                                                 php_version.get_compatible_php_versions_from_config(),
                                                 php_version.get_tested_php_versions_from_config(),
                                                 shopsystem_version.get_compatible_shopsystem_versions_range(),
-                                                shopsystem_version.get_tested_shopsystem_versions_range(),
+                                                shopsystem_version.get_tested_shopsystem_versions_range_from_config(),
                                                 shopsystem_version.get_compatible_platform_versions_range(),
                                                 shopsystem_version.get_tested_platform_versions_range())
     internal_file_updater.update_files()
+
+
+def compare_and_update_versions(extension_name):
+    # extension_version = ExtensionVersion() php_version = PhpVersion(extension_name,
+    # extension_version.get_release_candidate_version(semver=True)) shopsystem_version = ShopSystemVersion(
+    # extension_name, extension_version.get_release_candidate_version(semver=True))
+
+
+    php_version = PhpVersion(extension_name, "v3.2.1")
+
+    # shopsystem_version = ShopSystemVersion(extension_name, extension_version.get_last_released_version(semver=True))
+    shopsystem_version = ShopSystemVersion(extension_name, "v3.2.1")
+
+
+    # print("{} Release candidate version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
+    #                                                    extension_version.get_release_candidate_version(semver=True),
+    #                                                    Constants.PRETTY_LOG_ADDITION))
+    # print("{} Last released version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
+    #                                                extension_version.get_last_released_version(semver=True),
+    #                                                Constants.PRETTY_LOG_ADDITION))
+    # TODO compare the versions with versions from configs
+    if php_version.get_compatible_php_versions_from_config() != \
+            php_version.get_compatible_php_versions_from_changelog():
+        print("PHP compatible versions need to be updated")
+    if php_version.get_tested_php_versions_from_config() != php_version.get_tested_php_versions_from_changelog():
+        print("PHP tested versions need to be updated")
+    if shopsystem_version.get_tested_shopsystem_versions_range_from_config() != \
+            shopsystem_version.get_tested_shopsystem_versions_range_from_changelog():
+        print("Shopsystem tested versions need to be updated")
+    # TODO update internal files
+    # TODO update workflow files
+    pass
 
 
 if __name__ == "__main__":
@@ -54,8 +86,9 @@ if __name__ == "__main__":
                         help='shop extension name e.g. woocommerce-ee')
     parser.add_argument('action', metavar='action name', type=str,
                         help='the action to be performed e.g. initial_changelog_and_version_update, '
-                             'check_changelog_updated',
-                        choices=['initial_changelog_and_version_update', 'check_changelog_updated'])
+                             'check_and_update_versions_after_changelog_update',
+                        choices=['initial_changelog_and_version_update',
+                                 'check_and_update_versions_after_changelog_update'])
 
     args = parser.parse_args()
     try:
@@ -65,7 +98,8 @@ if __name__ == "__main__":
     action = args.action
     if args.action == "initial_changelog_and_version_update":
         add_new_changelog_entry_and_update_internal_files(extension_name)
-
+    if args.action == "check_and_update_versions_after_changelog_update":
+        compare_and_update_versions(extension_name)
 #   if action == check_changelog_updated
 #       get all versions from changelog
 #       get all versions from config

@@ -13,8 +13,11 @@ class TestShopSystemVersion(TestCase):
     def test_get_compatible_platform_versions_range(self):
         self.assertEqual(self.compatibilityVersion.get_compatible_platform_versions_range(), ['5.0.3', '5.3'])
 
-    def test_get_tested_shopsystem_versions_range(self):
-        self.assertEqual(self.compatibilityVersion.get_tested_shopsystem_versions_range(), ['3.8.0'])
-
     def test_get_tested_platform_versions_range(self):
         self.assertEqual(self.compatibilityVersion.get_tested_platform_versions_range(), ['5.3'])
+
+    def test_get_tested_shopsystem_versions_from_changelog(self):
+        self.assertEqual(self.compatibilityVersion.get_tested_shopsystem_versions_range_from_changelog(), ['3.8.0'])
+
+    def test_get_tested_shopsystem_versions_range_from_config(self):
+        self.assertEqual(self.compatibilityVersion.get_tested_shopsystem_versions_range_from_config(), ['3.8.0'])
