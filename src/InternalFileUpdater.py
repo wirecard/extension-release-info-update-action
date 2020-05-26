@@ -16,7 +16,8 @@ class InternalFileUpdater(FileUpdater):
                  shopsystem_compatibility_versions,
                  shopsystem_tested_versions,
                  platform_compatibility_versions=None,
-                 platform_tested_versions=None):
+                 platform_tested_versions=None,
+                 changelog_entries=None):
         super().__init__(extension,
                          release_candidate_version,
                          last_released_version,
@@ -26,6 +27,7 @@ class InternalFileUpdater(FileUpdater):
                          shopsystem_tested_versions,
                          platform_compatibility_versions,
                          platform_tested_versions)
+        self.changelog_entries = changelog_entries
         self.internal_files_entry_to_output_info_dict = {}
         self.set_internal_files_entry_to_output_info_dict()
 

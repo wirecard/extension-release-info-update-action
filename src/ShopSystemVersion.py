@@ -39,7 +39,8 @@ class ShopSystemVersion:
         """
          Sets tested shop systems from config
          """
-        self.tested_shopsystem_versions_from_config_range = FileActionHelper.get_data_from_compatible_shop_releases_text_file(self.extension)
+        self.tested_shopsystem_versions_from_config_range = \
+            FileActionHelper.get_data_from_compatible_shop_releases_text_file(self.extension)
 
     def get_version_ranges(self, version_type):
         """

@@ -5,8 +5,8 @@ from src.Constants import Constants
 from src.ChangelogEntry import ChangelogEntry
 from src.ChangelogUpdater import ChangelogFileUpdater
 from src.InternalFileUpdater import InternalFileUpdater
+from src.ConfigFileUpdater import ConfigFileUpdater
 import argparse
-import os
 
 
 def add_new_changelog_entry_and_update_internal_files(extension_name):
@@ -49,16 +49,14 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
 
 
 def compare_and_update_versions(extension_name):
-    # extension_version = ExtensionVersion() php_version = PhpVersion(extension_name,
-    # extension_version.get_release_candidate_version(semver=True)) shopsystem_version = ShopSystemVersion(
-    # extension_name, extension_version.get_release_candidate_version(semver=True))
-
-
-    php_version = PhpVersion(extension_name, "v3.2.1")
-
-    # shopsystem_version = ShopSystemVersion(extension_name, extension_version.get_last_released_version(semver=True))
-    shopsystem_version = ShopSystemVersion(extension_name, "v3.2.1")
-
+    # extension_version = ExtensionVersion()
+    # php_version = PhpVersion(extension_name, extension_version.get_release_candidate_version(semver=True))
+    # shopsystem_version = ShopSystemVersion(extension_name,
+    #                                           extension_version.get_release_candidate_version(semver=True))
+    # changelog_entries = ChangelogEntry(extension_name, extension_version.get_release_candidate_version(semver=True))
+    php_version = PhpVersion(extension_name, "v3.2.2")
+    shopsystem_version = ShopSystemVersion(extension_name, "v3.2.2")
+    changelog_entries = ChangelogEntry(extension_name, "v3.2.2")
 
     # print("{} Release candidate version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
     #                                                    extension_version.get_release_candidate_version(semver=True),
@@ -66,17 +64,42 @@ def compare_and_update_versions(extension_name):
     # print("{} Last released version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
     #                                                extension_version.get_last_released_version(semver=True),
     #                                                Constants.PRETTY_LOG_ADDITION))
-    # TODO compare the versions with versions from configs
+    config_file_updater = ConfigFileUpdater(extension_name, php_version.get_compatible_php_versions_from_changelog(),
+                                            php_version.get_tested_php_versions_from_changelog(),
+                                            shopsystem_version.get_tested_shopsystem_versions_range_from_changelog()
+                                            )
     if php_version.get_compatible_php_versions_from_config() != \
             php_version.get_compatible_php_versions_from_changelog():
-        print("PHP compatible versions need to be updated")
+        print(" {} PHP compatible versions have changed in CHANGELOG.md, "
+              "updating Unit test workflow {}".format(Constants.PRETTY_LOG_ADDITION,
+                                                      Constants.PRETTY_LOG_ADDITION))
+        config_file_updater.update_unit_test_workflow()
     if php_version.get_tested_php_versions_from_config() != php_version.get_tested_php_versions_from_changelog():
-        print("PHP tested versions need to be updated")
+        print(" {} PHP tested versions have changed in CHANGELOG.md, "
+              "updating UI test workflow {}".format(Constants.PRETTY_LOG_ADDITION,
+                                                    Constants.PRETTY_LOG_ADDITION))
+        config_file_updater.update_ui_test_workflow()
+
     if shopsystem_version.get_tested_shopsystem_versions_range_from_config() != \
             shopsystem_version.get_tested_shopsystem_versions_range_from_changelog():
-        print("Shopsystem tested versions need to be updated")
+        print(" {} Shop system tested version has changed in CHANGELOG.md, "
+              "updating compatible_shop_releases_file {}".format(Constants.PRETTY_LOG_ADDITION,
+                                                                 Constants.PRETTY_LOG_ADDITION))
+        config_file_updater.update_compatible_shop_releases_file()
     # TODO update internal files
-    # TODO update workflow files
+    # TODO take care of changelog entries to put them to readme.txt
+    internal_file_updater = InternalFileUpdater(extension_name,
+                                                # extension_version.get_release_candidate_version(),
+                                                # extension_version.get_last_released_version(),
+                                                "3.2.2",
+                                                "3.2.1",
+                                                php_version.get_compatible_php_versions_from_changelog(),
+                                                php_version.get_tested_php_versions_from_changelog(),
+                                                shopsystem_version.get_compatible_shopsystem_versions_range(),
+                                                shopsystem_version.get_tested_shopsystem_versions_range_from_changelog(),
+                                                shopsystem_version.get_compatible_platform_versions_range(),
+                                                shopsystem_version.get_tested_platform_versions_range())
+    internal_file_updater.update_files()
     pass
 
 

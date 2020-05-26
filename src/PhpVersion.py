@@ -20,8 +20,8 @@ class PhpVersion:
         """
         Sets tested php versions from ui test settings
         """
-        workflow_data = FileActionHelper.get_data_from_workflow_file(self.extension,
-                                                                     Constants.UI_TEST_WORKFLOW)
+        workflow_data = FileActionHelper.get_yml_data_from_workflow_file(self.extension,
+                                                                         Constants.UI_TEST_WORKFLOW)
         tested_php_versions = workflow_data['jobs']['include'][0]['php']
         if isinstance(tested_php_versions, list):
             for version in tested_php_versions:
@@ -33,9 +33,10 @@ class PhpVersion:
         """
         Sets tested php versions from unit test settings
         """
-        workflow_data = FileActionHelper.get_data_from_workflow_file(self.extension,
-                                                                     Constants.UNIT_TEST_WORKFLOW)
-        self.compatible_php_versions_from_config = workflow_data['jobs']['run']['strategy']['matrix']['php-versions']
+        workflow_data = FileActionHelper.get_yml_data_from_workflow_file(self.extension,
+                                                                         Constants.UNIT_TEST_WORKFLOW)
+        self.compatible_php_versions_from_config = \
+            workflow_data['jobs']['run']['strategy']['matrix'][Constants.PHP_VERSIONS_IN_UNIT_TEST_WORKFLOW]
 
     def get_compatible_php_versions_from_config(self) -> list:
         """
