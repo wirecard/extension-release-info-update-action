@@ -121,9 +121,4 @@ if __name__ == "__main__":
         add_new_changelog_entry_and_update_internal_files(extension_name)
     if args.action == "check_and_update_versions_after_changelog_update":
         compare_and_update_versions(extension_name)
-#   if action == check_changelog_updated
-#       get all versions from changelog
-#       get all versions from config
-#       check if config file versions are different with versions from config
-#           update config files with new versions
-#       update all other files with new versions
+
