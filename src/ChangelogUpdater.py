@@ -7,20 +7,6 @@ from bs4 import element
 import html2markdown
 
 
-# def get_first_sign_in_table_row_index(table_cells) -> int:
-#     """
-#     Returns index of the first special sign in a raw
-#     :return: int
-#     """
-#     signs_in_table = []
-#     for cell in table_cells:
-#         if (Constants.TICK_SIGN_IN_CHANGELOG in cell) \
-#                 or (Constants.TICK_SIGN_IN_CHANGELOG_UNICODE in cell) \
-#                 or (Constants.CROSS_SIGN_IN_CHANGELOG in cell):
-#             signs_in_table.append(cell)
-#     return table_cells.index(signs_in_table[0])
-
-
 def get_new_table_row(cell_list, new_cell_index, new_cells):
     """
     Returns table raw with with new cells
