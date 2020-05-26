@@ -97,8 +97,9 @@ class InternalFileUpdater(FileUpdater):
         return new_file_lines
 
     def get_new_internal_changelog_entry(self, file_lines):
-        # TODO this should be called when CHANGELOG file is updated. Then we would have changelog comments
-        # after string "== Changelog ==" add new release version and changelog commments
+        file_lines.append("{}\n".format(self.release_candidate_version))
+        for line in self.changelog_entries:
+            file_lines.append("- {}\n".format(line))
         return file_lines
 
     def get_updated_readme_badges(self, file_lines, hint_entries) -> list:

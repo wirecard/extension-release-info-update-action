@@ -19,9 +19,6 @@ class ConfigFileUpdater(FileUpdater):
                          shopsystem_tested_versions,
                          None,
                          None)
-        print("php compat {}".format(self.php_compatibility_versions))
-        print("php tested {}".format(self.php_tested_versions))
-        print("shopsys tested {}".format(self.shopsystem_tested_versions))
 
     def update_unit_test_workflow(self):
         """

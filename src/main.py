@@ -49,14 +49,14 @@ def add_new_changelog_entry_and_update_internal_files(extension_name):
 
 
 def compare_and_update_versions(extension_name):
-    # extension_version = ExtensionVersion()
-    # php_version = PhpVersion(extension_name, extension_version.get_release_candidate_version(semver=True))
-    # shopsystem_version = ShopSystemVersion(extension_name,
-    #                                           extension_version.get_release_candidate_version(semver=True))
-    # changelog_entries = ChangelogEntry(extension_name, extension_version.get_release_candidate_version(semver=True))
-    php_version = PhpVersion(extension_name, "v3.2.2")
-    shopsystem_version = ShopSystemVersion(extension_name, "v3.2.2")
-    changelog_entries = ChangelogEntry(extension_name, "v3.2.2")
+    extension_version = ExtensionVersion()
+    php_version = PhpVersion(extension_name, extension_version.get_release_candidate_version(semver=True))
+    shopsystem_version = ShopSystemVersion(extension_name,
+                                              extension_version.get_release_candidate_version(semver=True))
+    changelog_entries = ChangelogEntry(extension_name, extension_version.get_release_candidate_version(semver=True))
+    # php_version = PhpVersion(extension_name, "v3.2.2")
+    # shopsystem_version = ShopSystemVersion(extension_name, "v3.2.2")
+    # changelog_entries = ChangelogEntry(extension_name, "v3.2.2")
 
     # print("{} Release candidate version: {} {}".format(Constants.PRETTY_LOG_ADDITION,
     #                                                    extension_version.get_release_candidate_version(semver=True),
@@ -86,21 +86,19 @@ def compare_and_update_versions(extension_name):
               "updating compatible_shop_releases_file {}".format(Constants.PRETTY_LOG_ADDITION,
                                                                  Constants.PRETTY_LOG_ADDITION))
         config_file_updater.update_compatible_shop_releases_file()
-    # TODO update internal files
-    # TODO take care of changelog entries to put them to readme.txt
     internal_file_updater = InternalFileUpdater(extension_name,
-                                                # extension_version.get_release_candidate_version(),
-                                                # extension_version.get_last_released_version(),
-                                                "3.2.2",
-                                                "3.2.1",
+                                                extension_version.get_release_candidate_version(),
+                                                extension_version.get_last_released_version(),
+                                                # "3.2.2",
+                                                # "3.2.1",
                                                 php_version.get_compatible_php_versions_from_changelog(),
                                                 php_version.get_tested_php_versions_from_changelog(),
                                                 shopsystem_version.get_compatible_shopsystem_versions_range(),
                                                 shopsystem_version.get_tested_shopsystem_versions_range_from_changelog(),
                                                 shopsystem_version.get_compatible_platform_versions_range(),
-                                                shopsystem_version.get_tested_platform_versions_range())
+                                                shopsystem_version.get_tested_platform_versions_range(),
+                                                changelog_entries.get_changelog_entries())
     internal_file_updater.update_files()
-    pass
 
 
 if __name__ == "__main__":
