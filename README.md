@@ -15,9 +15,28 @@ This action can do
      - platform tested version - taken from previous changelog entry (if applicable) (see ````shop-extensions-config-files.json````)
      - platform compatible version - taken from previous changelog entry (if applicable) (see ````shop-extensions-config-files.json````)
 
-- Update version information in files listed in ````shop-extensions-internal-files.json```` and config files (files listed in ````shop-extensions-config-files.json````) according to information from CHANGELOG file
+- Update version information in files listed in ````shop-extensions-internal-files.json```` and NON WORKFLOW config files (files listed in ````shop-extensions-config-files.json````) according to information from CHANGELOG file
  
-    Further information will be completed
+    The versions are taken accordingly:
+     - extension last released version  - taken from last git tag
+     - extension current release version - taken from current branch name
+     - php compatible versions - taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+     - php tested versions - taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+     - shop system tested version - taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+     - shop system compatible version - taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+     - platform tested version - taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+     - platform compatible version - taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+
+- Check if workflow config files files listed in ````shop-extensions-config-files.json```` need to be updated
+    
+    **Github Actions does not allow modifying workflows from other workflows that's why this action does only the check!**
+    
+    If there are differences in the versions stated in workflows (see ````shop-extensions-config-files.json````) and in current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+    the action will fail. 
+    versions that are compared:
+     - php compatible versions - taken from UI test settings (see ````shop-extensions-config-files.json````) compared to the one taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+     - php tested versions - taken from unit test settings (see ````shop-extensions-config-files.json````) compared to the one taken from current release candidate changelog entry ((see ````shop-extensions-config-files.json````))
+
 
 ## How to setup
 1. Setting up creating new entry in `CHANGELOG.md` file and updating version information in internal files
@@ -48,31 +67,48 @@ This action can do
     ````
     And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
 
-2. Setting up updating version information in internal files and workflows according to information in `CHANGELOG.md`
+2. Setting up updating version information in internal files and non workflow config files according to information in `CHANGELOG.md`
     Simply add the action to your workflow
     ````
    - name: Checkout ${{ github.event.repository.name }}
       uses: wirecard/checkout@v2.0.0
       with:
-        ref: ${{ github.head_ref }}
+        ref: ${{ github.ref }}
    - name: Get tags
       run: git fetch --prune --unshallow 
    - name: Bump all versions
       uses: wirecard/extension-release-info-update-action@master
       with:
         repository: ${{ github.event.repository.name }}
-        action: check_and_update_versions_after_changelog_update
+        action: update_versions_after_changelog_update
    - name: Commit files
-      run: git commit -m "Bump versions and add initial changelog entry" -a
+      run: git commit -m "Bump versions after an update in CHANGELOG.md" -a
    - name: Push changes
       uses: wirecard/github-push-action@master
       with:
-        branch: ${{ github.head_ref }}
+        branch: ${{ github.ref }}
         github_token: ${{ secrets.GITHUB_TOKEN }}
     
     ````
     And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
 
+3. Setting up updating version information in internal files and non workflow config files according to information in `CHANGELOG.md`
+    Simply add the action to your workflow
+    ````
+   - name: Checkout ${{ github.event.repository.name }}
+      uses: wirecard/checkout@v2.0.0
+      with:
+        ref: ${{ github.ref }}
+   - name: Get tags
+      run: git fetch --prune --unshallow 
+   - name: Bump all versions
+      uses: wirecard/extension-release-info-update-action@master
+      with:
+        repository: ${{ github.event.repository.name }}
+        action: check_config_files_after_changelog_update    
+    ````
+    And adapt ````shop-extensions-config-files.json````  and ````shop-extensions-internal-files.json````to your repositories.  
+    
 ### Mandatory example shop-extension-internal-files.json
 ````json
 {
