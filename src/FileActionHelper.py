@@ -39,7 +39,7 @@ class FileActionHelper:
         return config_file_full_path
 
     @staticmethod
-    def get_data_from_workflow_file(extension, workflow) -> yaml:
+    def get_yml_data_from_workflow_file(extension, workflow) -> yaml:
         """
         Returns data from workflow file
         :return: yaml object
@@ -49,6 +49,18 @@ class FileActionHelper:
         with open(workflow_file_full_path, 'r') as workflow_file:
             yaml_data = yaml.load(workflow_file, Loader=yaml.FullLoader)
         return yaml_data
+
+    @staticmethod
+    def get_list_data_from_workflow_file(extension, workflow) -> list:
+        """
+        Returns data from workflow file
+        :return: list
+        """
+        data = []
+        workflow_file_full_path = FileActionHelper.get_file_path_by_config_key(extension, workflow)
+        with open(workflow_file_full_path, 'r') as workflow_file:
+            data = workflow_file.readlines()
+        return data
 
     @staticmethod
     def get_data_from_markdown_file(extension, markdown_file) -> markdown:

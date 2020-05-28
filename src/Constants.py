@@ -28,6 +28,11 @@ class Constants:
     TICK_SIGN_IN_CHANGELOG_UNICODE = u"\u2705"
     CROSS_SIGN_IN_CHANGELOG = ":x:"
     ROW_SEPARATOR_IN_CHANGELOG = ":-------:"
+    TABLE_ROW_COLUMN_SPLITTER_IN_CHANGELOG = ":|"
+
+    # special strings in other files
+    PHP_VERSIONS_IN_UNIT_TEST_WORKFLOW = "php-versions"
+    ACCEPTANCE_TEST_IN_UI_TEST_WORKFLOW = "&acceptance-test"
 
     # Generic strings
     NEW_LINE = '\n'

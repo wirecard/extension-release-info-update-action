@@ -16,7 +16,8 @@ class InternalFileUpdater(FileUpdater):
                  shopsystem_compatibility_versions,
                  shopsystem_tested_versions,
                  platform_compatibility_versions=None,
-                 platform_tested_versions=None):
+                 platform_tested_versions=None,
+                 changelog_entries=None):
         super().__init__(extension,
                          release_candidate_version,
                          last_released_version,
@@ -26,6 +27,7 @@ class InternalFileUpdater(FileUpdater):
                          shopsystem_tested_versions,
                          platform_compatibility_versions,
                          platform_tested_versions)
+        self.changelog_entries = changelog_entries
         self.internal_files_entry_to_output_info_dict = {}
         self.set_internal_files_entry_to_output_info_dict()
 
@@ -95,8 +97,9 @@ class InternalFileUpdater(FileUpdater):
         return new_file_lines
 
     def get_new_internal_changelog_entry(self, file_lines):
-        # TODO this should be called when CHANGELOG file is updated. Then we would have changelog comments
-        # after string "== Changelog ==" add new release version and changelog commments
+        file_lines.append("{}\n".format(self.release_candidate_version))
+        for line in self.changelog_entries:
+            file_lines.append("- {}\n".format(line))
         return file_lines
 
     def get_updated_readme_badges(self, file_lines, hint_entries) -> list:
