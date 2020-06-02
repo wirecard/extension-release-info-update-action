@@ -97,9 +97,10 @@ class InternalFileUpdater(FileUpdater):
         return new_file_lines
 
     def get_new_internal_changelog_entry(self, file_lines):
-        file_lines.append("{}\n".format(self.release_candidate_version))
-        for line in self.changelog_entries:
-            file_lines.append("- {}\n".format(line))
+        if self.changelog_entries:
+            file_lines.append("{}\n".format(self.release_candidate_version))
+            for line in self.changelog_entries:
+                file_lines.append("- {}\n".format(line))
         return file_lines
 
     def get_updated_readme_badges(self, file_lines, hint_entries) -> list:
