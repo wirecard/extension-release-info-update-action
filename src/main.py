@@ -9,7 +9,7 @@ from src.ConfigFileUpdater import ConfigFileUpdater
 from src.FileActionHelper import FileActionHelper
 import argparse
 import sys
-from termcolor import colored
+from termcolor import colored, cprint
 
 
 def add_new_changelog_entry_and_update_internal_files(extension_name):
@@ -88,22 +88,22 @@ def compare_config_file_and_changelog_versions(extension_name):
     exit_flag = False
     if php_version.get_compatible_php_versions_from_config() != \
             php_version.get_compatible_php_versions_from_changelog():
-        print(colored(" {} "
+        cprint(colored(" {} "
                       "PHP compatible versions have changed in CHANGELOG.md, "
                       "please update Unit test workflow {} "
                       "{}".format(Constants.PRETTY_LOG_ADDITION,
                                   FileActionHelper.get_file_path_by_config_key(extension_name,
                                                                                Constants.UNIT_TEST_WORKFLOW),
-                                  Constants.PRETTY_LOG_ADDITION)), file=sys.stderr)
+                                  Constants.PRETTY_LOG_ADDITION)), 'red', attrs=['bold'], file=sys.stderr)
         exit_flag = True
     if php_version.get_tested_php_versions_from_config() != php_version.get_tested_php_versions_from_changelog():
-        print(colored(" {} "
+        cprint(colored(" {} "
                       "PHP tested versions have changed in CHANGELOG.md, "
                       "please update UI test workflow {} "
                       "{}".format(Constants.PRETTY_LOG_ADDITION,
                                   FileActionHelper.get_file_path_by_config_key(extension_name,
                                                                                Constants.UI_TEST_WORKFLOW),
-                                  Constants.PRETTY_LOG_ADDITION)), file=sys.stderr)
+                                  Constants.PRETTY_LOG_ADDITION)), 'red', attrs=['bold'], file=sys.stderr)
         exit_flag = True
     if exit_flag:
         sys.exit(1)
