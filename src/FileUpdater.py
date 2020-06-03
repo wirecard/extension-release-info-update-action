@@ -1,3 +1,8 @@
+from src.Constants import Constants
+from termcolor import colored, cprint
+import sys
+
+
 class FileUpdater:
 
     def __init__(self,
@@ -27,5 +32,11 @@ class FileUpdater:
         :return: int
         """
         cells_containing_text = [s for s in entry_list if text in s]
-        return entry_list.index(cells_containing_text[0])
-
+        try:
+            return entry_list.index(cells_containing_text[0])
+        except IndexError:
+            cprint(colored("{} Line containing string '{}' does not exist in the file. Please update {} {}".
+                           format(Constants.PRETTY_LOG_ADDITION,
+                                  text,
+                                  Constants.SHOP_EXTENSION_INTERNAL_FILES_JSON_FILE_PATH,
+                                  Constants.PRETTY_LOG_ADDITION)), 'red', attrs=['bold'], file=sys.stderr)
