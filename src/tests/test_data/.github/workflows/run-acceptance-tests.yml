@@ -9,7 +9,7 @@ jobs:
       matrix:
         operating-system: [ubuntu-latest]
         php-versions: ['7.2']
-    if: startsWith(github.head_ref, 'RC-') && contains(github.head_ref, 'major') || contains(github.head_ref, 'minor') || contains(github.head_ref, 'patch')
+    if: startsWith(github.head_ref, 'RC-') != false && endsWith(github.head_ref, '-major') != false  || endsWith(github.head_ref, '-minor') != false || endsWith(github.head_ref, '-patch') != false
     steps:
       - name: Checkout ${{ github.event.repository.name }}
         uses: wirecard/checkout@v2.0.0
@@ -55,7 +55,7 @@ jobs:
         shell: bash
         env:
           GITHUB_RUN_ID: ${{ github.run_id }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
       - name: Acceptance tests failed
         if: ${{ failure() }}
         run: shopsystems-ui-test-runner/.bin/upload-logs-and-notify.sh fail
@@ -63,4 +63,4 @@ jobs:
         env:
           SLACK_ROOMS: ${{ secrets.SLACK_ROOMS }}
           GITHUB_RUN_ID: ${{ github.run_id }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.WORKFLOW_TOKEN }}
