@@ -129,7 +129,7 @@ This action can do
   "woocommerce":
     {
       "unit_test_workflow": "run_cs_unit_coverage.yml",
-      "ui_test_workflow": ".travis.yml",
+      "ui_test_workflow": "run-acceptance-tests.yml",
       "changelog_file": "CHANGELOG.md",
       "compatible_shop_releases_file": "compatible-shop-releases.txt"
     }
